@@ -1,0 +1,222 @@
+connect:
+  PathCrimes: '/home/ml/Documents/crimes_chigaco/data/raw/Crimes_-_2001_to_present.csv'
+  PathSocioEco: '/home/ml/Documents/crimes_chigaco/data/raw/Census_Data_-_Selected_socioeconomic_indicators_in_Chicago__2008___2012.csv'
+  PathTemperature: '/home/ml/Documents/crimes_chigaco/data/raw/temperature.csv'
+  PathSky: '/home/ml/Documents/crimes_chigaco/data/raw/weather_description.csv'
+  Pathcolumns: '/home/ml/Documents/crimes_chigaco/config/rename_columns.json'
+  PathGeoMapChicago: '../data/raw/chicago_police_districts.geojson'
+
+List_of_crimes_prediction:
+  with_merge: True
+  without_merged_pred: ['THEFT', 'BATTERY', 'CRIMINAL DAMAGE', 'NARCOTICS', 'BURGLARY', 'ASSAULT']
+  to_merge:
+    THEFT: "THEFT_ROBBERY_BURGLARY"
+    ROBBERY: "THEFT_ROBBERY_BURGLARY"
+    BURGLARY: "THEFT_ROBBERY_BURGLARY"
+    ASSAULT: "ASSAULT_BATTERY"
+    BATTERY: "ASSAULT_BATTERY"
+  with_merge_pred: ["THEFT_ROBBERY_BURGLARY", "ASSAULT_BATTERY", "NARCOTICS"]
+
+Mycolor:
+  Color_1: ['#a6cee3', '#1f78b4', '#b2df8a', '#a6cee3', '#1f78b4', '#b2df8a',
+  '#33a02c', '#a6cee3', '#1f78b4', '#b2df8a', '#33a02c', '#fb9a99','#a6cee3',
+  '#1f78b4', '#b2df8a', '#33a02c', '#fb9a99', '#e31a1c','#a6cee3', '#1f78b4',
+  '#b2df8a', '#33a02c', '#fb9a99', '#e31a1c','#fdbf6f', '#a6cee3', '#1f78b4',
+  '#b2df8a', '#33a02c', '#fb9a99','#e31a1c', '#fdbf6f', '#ff7f00', '#a6cee3',
+  '#1f78b4', '#b2df8a','#33a02c', '#fb9a99', '#e31a1c', '#fdbf6f', '#ff7f00',
+  '#cab2d6','#a6cee3', '#1f78b4', '#b2df8a', '#33a02c', '#fb9a99', '#e31a1c',
+  '#fdbf6f', '#ff7f00', '#cab2d6', '#6a3d9a', '#a6cee3', '#1f78b4','#b2df8a',
+  '#33a02c', '#fb9a99', '#e31a1c', '#fdbf6f', '#ff7f00','#cab2d6', '#6a3d9a',
+  '#ffff99', '#a6cee3', '#1f78b4', '#b2df8a','#33a02c', '#fb9a99', '#e31a1c',
+  '#fdbf6f', '#ff7f00', '#cab2d6','#6a3d9a', '#ffff99', '#b15928']
+
+NameArea: ['Albany Park',
+  'Archer Heights',
+  'Armour Square',
+  'Ashburn',
+  'Auburn Gresham',
+  'Austin',
+  'Avalon Park',
+  'Avondale',
+  'Belmont Cragin',
+  'Beverly',
+  'Bridgeport',
+  'Brighton Park',
+  'Burnside',
+  'CHICAGO',
+  'Calumet Heights',
+  'Chatham',
+  'Chicago Lawn',
+  'Clearing',
+  'Douglas',
+  'Dunning',
+  'East Garfield Park',
+  'East Side',
+  'Edgewater',
+  'Edison Park',
+  'Englewood',
+  'Forest Glen',
+  'Fuller Park',
+  'Gage Park',
+  'Garfield Ridge',
+  'Grand Boulevard',
+  'Greater Grand Crossing',
+  'Hegewisch',
+  'Hermosa',
+  'Humboldt park',
+  'Hyde Park',
+  'Irving Park',
+  'Jefferson Park',
+  'Kenwood',
+  'Lake View',
+  'Lincoln Park',
+  'Lincoln Square',
+  'Logan Square',
+  'Loop',
+  'Lower West Side',
+  'McKinley Park',
+  'Montclaire',
+  'Morgan Park',
+  'Mount Greenwood',
+  'Near North Side',
+  'Near South Side',
+  'Near West Side',
+  'New City',
+  'North Center',
+  'North Lawndale',
+  'North Park',
+  'Norwood Park',
+  "O'Hare",
+  'Oakland',
+  'Portage Park',
+  'Pullman',
+  'Riverdale',
+  'Rogers Park',
+  'Roseland',
+  'South Chicago',
+  'South Deering',
+  'South Lawndale',
+  'South Shore',
+  'Uptown',
+  'Washington Height',
+  'Washington Park',
+  'West Elsdon',
+  'West Englewood',
+  'West Garfield Park',
+  'West Lawn',
+  'West Pullman',
+  'West Ridge',
+  'West Town',
+  'Woodlawn']
+
+NameCrime: ['ARSON',
+            'ASSAULT',
+            'BATTERY',
+            'BURGLARY',
+            'CRIM SEXUAL ASSAULT',
+            'CRIMINAL DAMAGE',
+            'CRIMINAL TRESPASS',
+            'DECEPTIVE PRACTICE',
+            'HOMICIDE',
+            'INTERFERENCE WITH PUBLIC OFFICER',
+            'INTIMIDATION',
+            'KIDNAPPING',
+            'LIQUOR LAW VIOLATION',
+            'MOTOR VEHICLE THEFT',
+            'NARCOTICS',
+            'OFFENSE INVOLVING CHILDREN',
+            'OTHER OFFENSE',
+            'PROSTITUTION',
+            'PUBLIC PEACE VIOLATION',
+            'ROBBERY',
+            'SEX OFFENSE',
+            'STALKING',
+            'THEFT',
+            'WEAPONS VIOLATION',
+            'GAMBLING',
+            'PUBLIC INDECENCY',
+            'OBSCENITY',
+            'NON-CRIMINAL',
+            'OTHER NARCOTIC VIOLATION',
+            'NON-CRIMINAL (SUBJECT SPECIFIED)']
+
+List_of_crime_regression: ['ARSON',
+                           'ASSAULT',
+                           'BATTERY',
+                           'BURGLARY',
+                           'CRIM SEXUAL ASSAULT',
+                           'CRIMINAL DAMAGE',
+                           'CRIMINAL TRESPASS',
+                           'DECEPTIVE PRACTICE',
+                           'HOMICIDE',
+                           'INTERFERENCE WITH PUBLIC OFFICER',
+                           'INTIMIDATION',
+                           'KIDNAPPING',
+                           'LIQUOR LAW VIOLATION',
+                           'MOTOR VEHICLE THEFT',
+                           'NARCOTICS',
+                           'OFFENSE INVOLVING CHILDREN',
+                           'OTHER OFFENSE',
+                           'PROSTITUTION',
+                           'PUBLIC PEACE VIOLATION',
+                           'ROBBERY',
+                           'SEX OFFENSE',
+                           'STALKING',
+                           'THEFT',
+                           'WEAPONS VIOLATION',
+                           'GAMBLING',
+                           'PUBLIC INDECENCY',
+                           'OBSCENITY',
+                           'NON-CRIMINAL',
+                           'OTHER NARCOTIC VIOLATION']
+
+List_to_drop: ['id',
+               'location',
+               'cas_number',
+               'date',
+               'block',
+               'iucr',
+               'primary_type',
+               'updated_on',
+               'description',
+               'location_description',
+               'arrest',
+               'beat',
+               'district',
+               'ward',
+               'community_area_name',
+               'fbi_code',
+                'year']
+
+Xgboost_param_classification:
+  objective: 'multi:softmax'
+  eta: 0.08
+  silent: 0
+  nthread: 4
+  num_class: 6
+  eval_metric: 'mlogloss'
+  n_estimators:
+    st.randint(100, 200)
+  max_depth:
+    st.randint(5,20)
+  min_child_weight: 1
+  gamma: 10
+  reg_alfa: 0.1
+  subsample: 0.8
+  colsample_bytree: 1
+  max_delta_step: 1
+
+Xgboost_param_regression:
+  learning_rate: 0.9
+  alpha: 10
+  gamma: 0.5
+  n_estimators: 600
+  eta: 0.1
+  seed: 0
+  subsample: 0.8
+  colsample_bytree: 0.8
+  objective: 'reg:linear'
+  max_depth: 20
+  min_child_weight: 1
+
+delete_features: []
