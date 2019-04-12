@@ -103,6 +103,7 @@ class LoadDataframe:
 
         :return:
         """
+
         pd.options.mode.chained_assignment = None
         df = pd.read_csv(self.path_temperature(), parse_dates=['datetime'])
         df = df[['datetime', 'Chicago']]
@@ -112,6 +113,7 @@ class LoadDataframe:
         df['day'] = df['datetime'].dt.day
         df['hours'] = df['datetime'].dt.hour
         df.drop(columns='datetime', inplace=True, axis=1)
+
         return df
 
     def df_sky(self):
