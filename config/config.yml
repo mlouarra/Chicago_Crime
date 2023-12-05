@@ -1,13 +1,13 @@
 connect:
-  PathCrimes: '/home/ml/Documents/crimes_chigaco/data/raw/Crimes_-_2001_to_present.csv'
-  PathSocioEco: '/home/ml/Documents/crimes_chigaco/data/raw/Census_Data_-_Selected_socioeconomic_indicators_in_Chicago__2008___2012.csv'
+  PathCrimes: '/home/mlou/Chicago_Crime/data/raw/Crimes_-_2001_to_Present_20231130.csv'
+  PathSocioEco: '/home/mlou/Chicago_Crime/data/raw/Census_Data_-_Selected_socioeconomic_indicators_in_Chicago__2008___2012.csv'
   PathTemperature: '/home/ml/Documents/crimes_chigaco/data/raw/temperature.csv'
   PathSky: '/home/ml/Documents/crimes_chigaco/data/raw/weather_description.csv'
-  Pathcolumns: '/home/ml/Documents/crimes_chigaco/config/rename_columns.json'
+  Pathcolumns: '/home/mlou/Chicago_Crime/config/rename_columns.json'
   PathGeoMapChicago: '../data/raw/chicago_police_districts.geojson'
 
 List_of_crimes_prediction:
-  with_merge: True
+  with_merge: False
   without_merged_pred: ['THEFT', 'BATTERY', 'CRIMINAL DAMAGE', 'NARCOTICS', 'BURGLARY', 'ASSAULT']
   to_merge:
     THEFT: "THEFT_ROBBERY_BURGLARY"

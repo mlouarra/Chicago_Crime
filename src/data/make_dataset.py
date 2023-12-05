@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 import pandas as pd
 import json
+import yaml
+
+
 pd.options.mode.chained_assignment = None
 
 class LoadDataframe:
@@ -61,7 +64,7 @@ class LoadDataframe:
         :return:
         """
         column_name = json.loads(open(self.path_columns()).read())
-        df_crime = pd.read_csv(self.path_crime(), sep=';', parse_dates=['Date'])
+        df_crime = pd.read_csv(self.path_crime(), parse_dates=['Date'])
         df_crime.rename(columns=column_name['DataCrimes'], inplace=True)
 
         if self._config["List_of_crimes_prediction"]["with_merge"]:
@@ -87,6 +90,7 @@ class LoadDataframe:
         x_scaled = min_max_scaler.fit_transform(x)
         df_temp = pd.DataFrame(x_scaled, columns=column_names_to_normalize, index=df_socio.index)
         df_socio[column_names_to_normalize] = df_temp
+        del df_temp
         return df_socio
 
     def df_crime_socio(self):
@@ -190,3 +194,16 @@ class LoadDataframe:
             if "primary_type_" + col not in list(df_merged_.columns):
                 df_merged_["primary_type_" + col] = -1
         return df_merged_
+
+if __name__ == "__main__":
+
+    path_config = '../../config/config.yml'
+    with (open(path_config, 'r') as fichier):
+        # Utilisez la fonction load() pour charger le contenu du fichier YAML
+        config = yaml.load(fichier, Loader=yaml.FullLoader)
+    obj_df = LoadDataframe(config, 2020, 2023)
+    df_nb_crimes = obj_df.df_nb_crimes()
+
+    print("df_nb_crimes", df_nb_crimes)
+
+

@@ -94,7 +94,7 @@ class model_classification:
         # watchlist = [(dtrain, 'train'), (dtest, 'eval')]
         num_round = 40
         # Train XGBoost
-        bst = xgb.train(param, dtrain, num_round)
+        bst = xgb.train(param, self.dtrain, num_round)
         return bst
 
     def train_svm(self):

@@ -2,15 +2,12 @@
 import pandas as pd
 import datetime as dt
 from sklearn.preprocessing import LabelEncoder
-from astral import Astral
+import datetime
+from astral import LocationInfo
+from astral import sun
 import re
 
 class extract_features_classification:
-
-    city_name = 'Chicago'
-    a = Astral()
-    a.solar_depression = 'civil'
-    city = a[city_name]
 
     def __init__(self, config, df_crime_socio, df_temperature, df_sky):
         """
@@ -124,9 +121,15 @@ class extract_features_classification:
 
         :return:
         """
+        # Créez un objet Sun pour calculer les heures de lever et de coucher du soleil
+        from astral import LocationInfo
+        from astral.sun import sun
+        chicago = LocationInfo("Chicago")
+        s = sun(chicago.observer, date=chicago.timezone.localize(datetime.date.today()))
+        # Calculez la durée du jour en soustrayant l'heure de lever du soleil à l'heure de coucher
+        duree_jour = s["sunset"] - s["sunrise"]
+        return  duree_jour
 
-        sun = self.city.sun(date=date, local=True)
-        return (sun['sunset'] - sun['sunrise']).total_seconds()
 
 
     def extract_feature(self):
