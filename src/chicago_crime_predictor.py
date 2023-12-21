@@ -56,58 +56,77 @@ class ChicagoCrimePredictor:
 
     def load_df_crimes(self):
 
-        df_crimes = pd.read_csv("../data/raw/Crimes_-_2001_to_Present_20231130.csv", parse_dates=['Date'])
+        df_crimes = pd.read_csv("../data/raw/Crimes_Chicago.csv", usecols=['Date', 'Primary Type', 'Community Area'], parse_dates=['Date'])
         df_crimes.rename(columns=self.dicto_rename_crimes, inplace=True)
         return df_crimes
 
     def load_df_socio(self):
 
-        df_socio = pd.read_csv("../data/raw/Census_Data_-_Selected_socioeconomic_indicators_in_Chicago__2008___2012.csv")
+        df_socio = pd.read_csv("../data/raw/socio_economic_Chicago.csv")
         df_socio.rename(columns=self.dicto_rename_socio, inplace=True)
         return df_socio
 
-    def return_data_ml(self, type_incident, start_date_train, end_date_train, community_area=None):
 
-        start_date_train = pd.to_datetime(start_date_train)
-        end_date_train = pd.to_datetime(end_date_train)
+    def return_data_ml(self, type_incident, start_date_train, end_date_train, community_area=None):
+        # Conversion des chaînes de dates en objets datetime.
+        start_date_train, end_date_train = pd.to_datetime([start_date_train, end_date_train])
+
+        # Chargement des DataFrames.
         df_crimes = self.load_df_crimes()
         df_socio = self.load_df_socio()
-        df_src = pd.merge(df_crimes, df_socio, on='community_area_number', how='left')
 
-        df_src.drop(df_src.columns.difference(['primary_type', 'date', 'community_area_name']), inplace=True, axis=1)
-        if community_area != None:
-            df = df_src[(df_src.primary_type == type_incident) & (df_src.community_area_name == community_area)]
-        else:
-            df = df_crimes[df_crimes.primary_type == type_incident]
-        del df_crimes
-        del df_socio
-        df['year_month'] = df['date'].apply(lambda x: x.strftime('%Y-%m'))
-        df_group = df.groupby(['year_month'], as_index=False).agg({'primary_type': 'count'})
-        df_group.rename(columns={"primary_type": "nb_crime"}, inplace=True)
-        df_group['year_month'] = pd.to_datetime(df_group['year_month'])
-        df_group.sort_values(by='year_month', inplace=True)
-        df_group.reset_index(inplace=True, drop=True)
-        del df
-        df_group['year_month'] = pd.to_datetime(df_group['year_month'], format="%Y%m") + MonthEnd(1)
-        df_group.columns = ['ds', 'y']
+        # Fusion des DataFrames sur 'community_aa_number' avec une jointure gauche.
+        df = pd.merge(df_crimes, df_socio[['community_area_number', 'community_area_name']],
+                      on='community_area_number', how='left')
+
+        # Filtrage des crimes par type et, si spécifié, par community_area.
+        is_type = df['primary_type'] == type_incident
+        is_area = df['community_area_name'] == community_area if community_area else True
+        df = df[is_type & is_area]
+
+        # Ajout d'une colonne 'year_month' pour le groupement.
+        df['year_month'] = df['date'].dt.to_period('M')
+
+        # Groupement par 'year_month' et comptage des incidents.
+        df_group = df.groupby('year_month')['primary_type'].count().reset_index()
+
+        # Renommage des colonnes pour la conformité avec Prophet.
+        df_group.rename(columns={'year_month': 'ds', 'primary_type': 'y'}, inplace=True)
+
+        # Conversion de la colonne 'ds' en fin de mois et filtrage par la plage de dates.
+        df_group['ds'] = df_group['ds'].dt.to_timestamp('M') + MonthEnd(1)
+
+        # Retour des données filtrées par la plage de dates d'entraînement.
         return df_group[(df_group['ds'] >= start_date_train) & (df_group['ds'] <= end_date_train)]
 
 
-    def model_train(self, data_train):
+    def split_date(self, months, df):
+        df['ds'] = pd.to_datetime(df['ds'])  # Assurez-vous que 'ds' est au format datetime
+        split_date = df['ds'].max() - pd.DateOffset(months=months)
+        return split_date
 
-        # Créer un modèle Prophet
-        self.model = Prophet()
+    def model_train(self, data_train, split_date):
+        # Séparer les données d'entraînement et de test
 
-        # Entraîner le modèle sur les données
-        self.model.fit(data_train)
+        train = data_train[data_train['ds'] <= split_date]
+        # Créer et entraîner le modèle Prophet
+        self.model = Prophet(yearly_seasonality=True,
+                        # weekly_seasonality=True,
+                        daily_seasonality=False,
+                        seasonality_prior_scale=10,  # Augmenter pour une saisonnalité plus flexible
+                        changepoint_prior_scale=0.05  # Diminuer pour des tendances moins flexibles)
+                        )
+        self.model.fit(train)
 
-    def model_predict(self, future_dates):
+
+
+    def model_predict(self):
         if self.model is None:
             raise ValueError("Le modèle n'a pas encore été entraîné. Utilisez la méthode 'model_train' d'abord.")
 
         # Prédire les valeurs pour les dates futures
-        forecast = self.model.predict(future_dates)
-
+        future = self.model.make_future_dataframe(periods=12, freq='M')
+        forecast = self.model.predict(future)
         return forecast
 
     def model_save(self, filename):
@@ -135,8 +154,8 @@ class ChicagoCrimePredictor:
 # Exemple d'utilisation :
 if __name__ == "__main__":
     obj_predict = ChicagoCrimePredictor()
-    data_ml = obj_predict.return_data_ml("THEFT", "2019-11", "2022-10", "Austin")
-    obj_predict.model_train(data_ml)
-    obj_predict.model_save("../models/model_theft")
+    data_ml = obj_predict.return_data_ml_("THEFT", "2019-11", "2022-10", "Austin")
+    # obj_predict.model_train(data_ml)
+    # obj_predict.model_save("../models/model_theft")
     
     print(data_ml)
