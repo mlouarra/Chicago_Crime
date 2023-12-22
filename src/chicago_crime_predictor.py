@@ -4,7 +4,7 @@ import pandas as pd
 import plotly.graph_objs as go
 from prophet import Prophet
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
-
+from pathlib import Path
 
 class ChicagoCrimePredictor:
     dicto_rename_crimes = {
@@ -43,20 +43,21 @@ class ChicagoCrimePredictor:
         'per_capita_income':'per_capita_income',
         'HARDSHIP INDEX' : 'hardship_index'}
 
-    def __init__(self, months_pred):
+    def __init__(self, months_pred, data_dir):
         self.model = None
         self._month_pred = months_pred
+        self.data_dir = Path(data_dir)
 
 
     def load_df_crimes(self):
-
-        df_crimes = pd.read_csv("../data/raw/Crimes_Chicago.csv", usecols=['Date', 'Primary Type', 'Community Area'], parse_dates=['Date'])
+        crimes_file_path = self.data_dir / 'Crimes_Chicago.csv'
+        df_crimes = pd.read_csv(crimes_file_path, usecols=['Date', 'Primary Type', 'Community Area'], parse_dates=['Date'])
         df_crimes.rename(columns=self.dicto_rename_crimes, inplace=True)
         return df_crimes
 
     def load_df_socio(self):
-
-        df_socio = pd.read_csv("../data/raw/socio_economic_Chicago.csv")
+        socio_file_path = self.data_dir / 'socio_economic_Chicago.csv'
+        df_socio = pd.read_csv(socio_file_path)
         df_socio.rename(columns=self.dicto_rename_socio, inplace=True)
         return df_socio
 
@@ -162,8 +163,5 @@ class ChicagoCrimePredictor:
 # Exemple d'utilisation :
 if __name__ == "__main__":
     obj_predict = ChicagoCrimePredictor(12)
-    data_ml = obj_predict.return_data("ASSAULT", 15, 'Austin')
-    # obj_predict.model_train(data_ml)
-    # obj_predict.model_save("../models/model_theft")
-    
-    print(data_ml)
+    data_ml = obj_predict.return_data("ASSAULT", 'Austin')
+
