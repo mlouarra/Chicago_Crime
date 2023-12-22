@@ -1,16 +1,10 @@
+import joblib
 import numpy as np
 import pandas as pd
-from datetime import datetime, timedelta
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import mean_squared_error
-from sklearn.metrics import r2_score
-from sklearn.metrics import explained_variance_score
-from sklearn.metrics import mean_absolute_error
-from prophet.serialize import model_to_json, model_from_json
+import plotly.graph_objs as go
 from prophet import Prophet
-import joblib
-from pandas.tseries.offsets import MonthEnd
-import joblib
+from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
+
 
 class ChicagoCrimePredictor:
     dicto_rename_crimes = {
@@ -49,9 +43,9 @@ class ChicagoCrimePredictor:
         'per_capita_income':'per_capita_income',
         'HARDSHIP INDEX' : 'hardship_index'}
 
-
-    def __init__(self):
+    def __init__(self, months_pred):
         self.model = None
+        self._month_pred = months_pred
 
 
     def load_df_crimes(self):
@@ -66,18 +60,14 @@ class ChicagoCrimePredictor:
         df_socio.rename(columns=self.dicto_rename_socio, inplace=True)
         return df_socio
 
-
-    def return_data_ml(self, type_incident, start_date_train, end_date_train, community_area=None):
+    def return_data(self, type_incident, community_area=None):
         # Conversion des chaînes de dates en objets datetime.
-        start_date_train, end_date_train = pd.to_datetime([start_date_train, end_date_train])
-
-        # Chargement des DataFrames.
         df_crimes = self.load_df_crimes()
         df_socio = self.load_df_socio()
-
-        # Fusion des DataFrames sur 'community_aa_number' avec une jointure gauche.
+        # Fusion des DataFrames sur 'community_area_number' avec une jointure gauche.
         df = pd.merge(df_crimes, df_socio[['community_area_number', 'community_area_name']],
                       on='community_area_number', how='left')
+        df.sort_values(by="date", inplace=True)
 
         # Filtrage des crimes par type et, si spécifié, par community_area.
         is_type = df['primary_type'] == type_incident
@@ -94,21 +84,16 @@ class ChicagoCrimePredictor:
         df_group.rename(columns={'year_month': 'ds', 'primary_type': 'y'}, inplace=True)
 
         # Conversion de la colonne 'ds' en fin de mois et filtrage par la plage de dates.
-        df_group['ds'] = df_group['ds'].dt.to_timestamp('M') + MonthEnd(1)
-
+        df_group['ds'] = df_group['ds'].dt.to_timestamp('M')
         # Retour des données filtrées par la plage de dates d'entraînement.
-        return df_group[(df_group['ds'] >= start_date_train) & (df_group['ds'] <= end_date_train)]
+        df_group['ds'] = pd.to_datetime(df_group['ds'])  # Assurez-vous que 'ds' est au format datetime
+        split_date = df_group['ds'].max() - pd.DateOffset(months=self._month_pred)
+        train = df_group[df_group['ds'] <= split_date]
+        test = df_group[df_group['ds'] > split_date]
+        return train, test
 
+    def model_train(self, data_train):
 
-    def split_date(self, months, df):
-        df['ds'] = pd.to_datetime(df['ds'])  # Assurez-vous que 'ds' est au format datetime
-        split_date = df['ds'].max() - pd.DateOffset(months=months)
-        return split_date
-
-    def model_train(self, data_train, split_date):
-        # Séparer les données d'entraînement et de test
-
-        train = data_train[data_train['ds'] <= split_date]
         # Créer et entraîner le modèle Prophet
         self.model = Prophet(yearly_seasonality=True,
                         # weekly_seasonality=True,
@@ -116,8 +101,7 @@ class ChicagoCrimePredictor:
                         seasonality_prior_scale=10,  # Augmenter pour une saisonnalité plus flexible
                         changepoint_prior_scale=0.05  # Diminuer pour des tendances moins flexibles)
                         )
-        self.model.fit(train)
-
+        self.model.fit(data_train)
 
 
     def model_predict(self):
@@ -125,9 +109,11 @@ class ChicagoCrimePredictor:
             raise ValueError("Le modèle n'a pas encore été entraîné. Utilisez la méthode 'model_train' d'abord.")
 
         # Prédire les valeurs pour les dates futures
-        future = self.model.make_future_dataframe(periods=12, freq='M')
+        future = self.model.make_future_dataframe(periods=self._month_pred, freq='M')
         forecast = self.model.predict(future)
-        return forecast
+        split_date = forecast['ds'].max() - pd.DateOffset(months=self._month_pred)
+        predictions = forecast[['ds', 'yhat']].loc[forecast['ds'] > split_date]
+        return forecast, predictions
 
     def model_save(self, filename):
         if self.model is None:
@@ -137,24 +123,46 @@ class ChicagoCrimePredictor:
         joblib.dump(self.model, filename)
         print(f"Modèle enregistré sous {filename}")
 
-    def model_evaluation(self, actual_values, predicted_values):
+    def model_evaluation(self, test, predictions):
+
         if self.model is None:
             raise ValueError("Le modèle n'a pas encore été entraîné. Utilisez la méthode 'model_train' d'abord.")
-
         # Calcul de la MAE
-        mae = mean_absolute_error(actual_values, predicted_values)
-
+        mae = mean_absolute_error(test['y'], predictions['yhat'])
         # Calcul du RMSE
-        rmse = np.sqrt(mean_squared_error(actual_values, predicted_values))
-
+        rmse = np.sqrt(mean_squared_error(test['y'], predictions['yhat']))
+        # Calcul du R²
+        r2 = r2_score(test['y'], predictions['yhat'])
         # Affichage des métriques d'évaluation
         print(f"Mean Absolute Error (MAE): {mae}")
         print(f"Root Mean Squared Error (RMSE): {rmse}")
+        print(f'R²: {r2}')
+
+    def model_visualization(self, train, test, predictions):
+        # Création des tracés pour Plotly
+        trace_train = go.Scatter(x=train['ds'], y=train['y'], mode='lines', name='Training Data')
+        trace_test = go.Scatter(x=test['ds'], y=test['y'], mode='lines', name='Test Data')
+        trace_predictions = go.Scatter(x=predictions['ds'], y=predictions['yhat'], mode='lines', name='Predicted Data')
+
+        # Combinaison des tracés dans une figure Plotly
+        fig = go.Figure(data=[trace_train, trace_test, trace_predictions])
+
+        # Mise à jour du layout pour ajouter un titre et des légendes d'axes
+        fig.update_layout(
+            title='Crimes in Chicago: Actual vs Predicted',
+            xaxis_title='Date',
+            yaxis_title='Number of Crimes',
+            hovermode='x'
+        )
+
+        # Affichage de la figure interactive
+        fig.show()
+
 
 # Exemple d'utilisation :
 if __name__ == "__main__":
-    obj_predict = ChicagoCrimePredictor()
-    data_ml = obj_predict.return_data_ml_("THEFT", "2019-11", "2022-10", "Austin")
+    obj_predict = ChicagoCrimePredictor(12)
+    data_ml = obj_predict.return_data("ASSAULT", 15, 'Austin')
     # obj_predict.model_train(data_ml)
     # obj_predict.model_save("../models/model_theft")
     
