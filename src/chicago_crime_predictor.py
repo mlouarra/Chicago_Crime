@@ -158,10 +158,3 @@ class ChicagoCrimePredictor:
 
         # Affichage de la figure interactive
         fig.show()
-
-
-# Exemple d'utilisation :
-if __name__ == "__main__":
-    obj_predict = ChicagoCrimePredictor(12)
-    data_ml = obj_predict.return_data("ASSAULT", 'Austin')
-
