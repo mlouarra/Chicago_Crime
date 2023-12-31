@@ -1,9 +1,13 @@
 # contenu de tests/test_chicago_crime_predictor.py
-import pytest
-from src.chicago_crime_predictor import ChicagoCrimePredictor
-import pandas as pd
-from pytest import fixture
 from pathlib import Path
+
+import joblib
+import pandas as pd
+from prophet import Prophet
+from pytest import fixture
+
+from src.chicago_crime_predictor import ChicagoCrimePredictor
+
 
 def test_init():
     predictor = ChicagoCrimePredictor(months_pred=6, data_dir='data')
@@ -47,3 +51,39 @@ def test_return_data(mocker, mock_df_crime, mock_df_socio):
     train, test = predictor.return_data(type_incident='THEFT')
     assert isinstance(train, pd.DataFrame)
     assert isinstance(test, pd.DataFrame)
+
+
+def test_model_train(mocker):
+    mocker.patch.object(Prophet, 'fit')
+    predictor = ChicagoCrimePredictor(months_pred=6, data_dir='data')
+    predictor.model_train(pd.DataFrame({'ds': [1], 'y': [1]}))
+    assert isinstance(predictor.model, Prophet)
+
+
+def test_model_predict(mocker):
+    mocker.patch.object(Prophet, 'predict', return_value=pd.DataFrame({'ds': [1], 'yhat': [1]}))
+    predictor = ChicagoCrimePredictor(months_pred=6, data_dir='data')
+    predictor.model = Prophet()
+    forecast, predictions = predictor.model_predict()
+    assert not predictions.empty
+
+
+def test_model_predict():
+    # Chemin vers le modèle pré-entraîné
+    model_path = Path('models/test_model')
+
+    # Charger le modèle pré-entraîné
+    trained_model = joblib.load(model_path)
+
+    # Créer une instance de votre prédicteur
+    predictor = ChicagoCrimePredictor(months_pred=6, data_dir='data')
+
+    # Attribuer le modèle pré-entraîné à l'instance de prédicteur
+    predictor.model = trained_model
+
+    # Appeler la méthode model_predict
+    forecast, predictions = predictor.model_predict()
+
+    # Assertions pour votre test
+    assert not predictions.empty
+    # Vous pouvez ajouter plus d'assertions ici pour valider les résultats
