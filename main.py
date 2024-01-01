@@ -23,7 +23,7 @@ def main():
     df_train, df_test = obj_predict.return_data("ASSAULT", 'Austin')
     obj_predict.model_train(df_train)
     forecast, predictions = obj_predict.model_predict()
-    obj_predict.model_save(MODELS_DIR/'test_model')
+    obj_predict.model_save(MODELS_DIR/'test_model.pkl')
     obj_predict.model_evaluation(df_test, predictions)
     obj_predict.model_visualization(df_train, df_test, predictions)
 
