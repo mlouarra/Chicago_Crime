@@ -1,12 +1,10 @@
-.
 ├── config
 
 │── config.yml
 
 └── rename_columns.json
 
-├── data 
-    
+├── data
 
 ├── docs
 
@@ -46,6 +44,22 @@ le but de prédire les tendances criminelles et de fournir
 des insights pour la prévention. 
 Il utilise des données historiques pour identifier les modèles et 
 les hotspots de criminalité.
+
+## Organisation du code 
+### Méthodes de la Classe
+
+Cette classe est constituée des méthodes suivantes :
+
+- `load_df_crimes`: Charge les données sur les crimes depuis un fichier CSV.
+- `load_df_socio`: Charge les données socio-économiques depuis un fichier CSV.
+- `return_data`: Prépare et retourne les données pour l'entraînement et le test du modèle.
+- `model_evaluation`: Évalue le modèle sur les données de test.
+- `model_predict`: Effectue des prédictions en utilisant le modèle entraîné.
+- `model_save`: Sauvegarde le modèle entraîné dans un fichier.
+- `model_train`: Entraîne le modèle Prophet sur les données fournies.
+- `model_visualization`: Visualise les données d'entraînement, de test et les prédictions.
+
+
 ## source des données 
 - https://data.cityofchicago.org/Public-Safety/Crimes-2001-to-Present/ijzp-q8t2/data_preview
 - https://data.cityofchicago.org/Health-Human-Services/Census-Data-Selected-socioeconomic-indicators-in-C/kn9c-c2s2/data_preview
@@ -58,8 +72,16 @@ les hotspots de criminalité.
 - bibliothèque Prophet
 
 ### Setup
-```sh
-git clone git@github.com:mlouarra/Chicago_Crime.git
-cd projet_crime_chicago
-pip install -r requirements.txt
+
+- git clone git@github.com:mlouarra/Chicago_Crime.git
+- cd projet_crime_chicago
+- pip install -r requirements.txt
+
+## execution du code
+
+
+Le code contient deux scripts sous la racine :
+
+- `main.py` : Ce script peut être exécuté via la commande `python main.py`.
+- `main_api.py` : Ce script peut être exécuté via la commande `python main_api.py`.
 
