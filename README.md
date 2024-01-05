@@ -46,7 +46,8 @@ Il utilise des données historiques pour identifier les modèles et
 les hotspots de criminalité.
 
 ## Méthode de prédiction :
-![exemple de crime](./reports/images/image_crimes.png)
+![exemple de crime](./reports/images/image_crimes.png) <br>
+
 La collecte des données sur les crimes est organisée de manière,
 où chaque incident est classifié non seulement par région, mais aussi chronologiquement par mois.
 Cette approche transforme le nombre de crimes en une série temporelle,
