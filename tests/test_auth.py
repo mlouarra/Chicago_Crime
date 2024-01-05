@@ -1,61 +1,41 @@
+import pytest
 from fastapi.testclient import TestClient
-from src.auth_api import app # Remplacez 'my_app' par le nom de votre application FastAPI
-import jwt
-from datetime import datetime, timedelta
+from main_api import (app, verify_password, generate_token)
 
-# Clé secrète (la même que celle utilisée dans votre application)
-SECRET_KEY = "my_secret_key"
-# Algorithme de chiffrement (le même que celui utilisé dans votre application)
-ALGORITHM = "HS256"
-# Durée de validité du token
-ACCESS_TOKEN_EXPIRE_MINUTES = 30
+# Test la fonction verify_password
+def test_verify_password():
+    hashed_password = "$2b$12$x518gVtvF9nE4RDDInHRIe07GBDfXkl9PwMId3QolhAVeG5fYTuIy"
+    assert verify_password("password", hashed_password) is True
+    assert verify_password("wrong_password", hashed_password) is False
 
-fake_users_db = {
-    "chicago_user": {
-        "username": "chicago_user",
-        "hashed_password": "$2b$12$yBwveOeJZ3qqd4RB0j1VwO/YhUC8tTdPxXADtSloV8P.s62Ucu3ZC",
-    }
-}
-# Fonction pour créer un token JWT valide
-def create_valid_token(username):
-    expire = datetime.utcnow() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
-    payload = {
-        "sub": username,
-        "exp": expire,
-    }
-    token = jwt.encode(payload, SECRET_KEY, algorithm=ALGORITHM)
-    print(f"Created a valid JWT token for user: {token}")
-    return token
+# Test la génération de token
+def test_generate_token():
+    username = "test_user"
+    token = generate_token(username)
+    assert isinstance(token, str)
+    assert len(token) > 0
 
+# Test de la route d'authentification
 client = TestClient(app)
 
-def test_get_current_user_success():
-    # Simulez un token JWT valide
-    valid_token = create_valid_token("chicago_user")
-
-    # Effectuez une requête à votre endpoint FastAPI
-    response = client.get("/secure-data", headers={"Authorization": f"Bearer {valid_token}"})
-
-    # Vérifiez le code de statut de la réponse
+def test_login_success():
+    response = client.post("/login", data={"username": "chicago", "password": "password"})
     assert response.status_code == 200
+    assert "access_token" in response.json()
 
-    # Vérifiez le contenu de la réponse
-    response_json = response.json()
-    assert "message" in response_json
-    assert response_json["message"] == "Operation successful"
-    assert "user" in response_json
+def test_login_failure():
+    response = client.post("/login", data={"username": "chicago", "password": "wrong_password"})
+    assert response.status_code == 401
+    assert "access_token" not in response.json()
 
-def test_get_current_user_failure():
-    # Simulez un token JWT invalide
-    invalid_token = "token_jwt_invalide"
+# Test de la route de données sécurisées
+def test_secure_data_with_token():
+    token = generate_token("chicago")
+    headers = {"Authorization": f"Bearer {token}"}
+    response = client.get("/secure-data", headers=headers)
+    assert response.status_code == 200
+    assert response.json()["message"] == "Données sécurisées pour l'utilisateur chicago"
 
-    # Effectuez une requête à votre endpoint FastAPI
-    response = client.get("/secure-data", headers={"Authorization": f"Bearer {invalid_token}"})
-
-    # Vérifiez le code de statut de la réponse (401 Unauthorized)
-    assert response.status_code
-
-    # Vérifiez le contenu de la réponse (message d'erreur)
-    response_json = response.json()
-    assert "detail" in response_json
-    assert response_json["detail"] == "Could not validate credentials"
+def test_secure_data_without_token():
+    response = client.get("/secure-data")
+    assert response.status_code == 401

@@ -22,7 +22,6 @@ password = "password"
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 # Générer le hachage du mot de passe en utilisant la fonction generate_password_hash de Passlib
 hashed_password = pwd_context.hash(password)
-
 # schéma OAuth2 qui sera utilisé pour valider les jetons d'accès lorsqu'ils sont envoyés dans les requêtes HTTP.
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/login")
 
@@ -108,28 +107,3 @@ class UserLogin(BaseModel):
     username: str
     password: str
     token: Optional[str] = None  # Champ optionnel pour stocker le token JWT
-'''
-# Route d'authentification
-@app.post('/login', response_model=dict, tags=["Authentification"])
-async def login(form_data: OAuth2PasswordRequestForm = Depends()):
-    try:
-        if form_data.username == username and verify_password(form_data.password, hashed_password):
-            token = generate_token(username)
-            return {'access_token': token, 'token_type': 'bearer'}
-        else:
-            raise HTTPException(status_code=401, detail='Échec de l\'authentification')
-    except passlib.exc.UnknownHashError:
-        raise HTTPException(status_code=500, detail='Erreur interne du serveur : Format de hachage inconnu')
-
-# Route sécurisée nécessitant un token
-@app.get('/secure-data', response_model=dict, tags=["Données sécurisées"])
-async def secure_data(current_user: str = Depends(oauth2_scheme)):
-    try:
-        payload = jwt.decode(current_user, SECRET_KEY, algorithms=[ALGORITHM])
-        current_username = payload['sub']
-        return {'message': f'Données sécurisées pour l\'utilisateur {current_username}'}
-    except jwt.ExpiredSignatureError:
-        raise HTTPException(status_code=401, detail='Token expiré')
-    except jwt.InvalidTokenError:
-        raise HTTPException(status_code=401, detail='Token invalide')
-'''
