@@ -42,8 +42,22 @@
 Ce projet analyse les données sur les crimes à Chicago dans 
 le but de prédire les tendances criminelles et de fournir 
 des insights pour la prévention. 
-Il utilise des données historiques pour identifier les modèles et 
+Il utilise des données historiques pour identifier les modèles et
 les hotspots de criminalité.
+
+## Méthode de prédiction :
+![exemple de crime](./reports/images/image_crimes.png)
+La collecte des données sur les crimes est organisée de manière,
+où chaque incident est classifié non seulement par région, mais aussi chronologiquement par mois.
+Cette approche transforme le nombre de crimes en une série temporelle,
+permettant ainsi une analyse des tendances et des modèles dans le temps. 
+Pour prédire l'évolution future de ces tendances, nous utilisons un outil avancé nommé Prophet, 
+disponible sur PyPI. 
+Prophet se distingue par sa capacité à gérer les changements saisonniers et les jours fériés, 
+offrant ainsi des prédictions robustes et fiables, cruciales pour une planification stratégique et
+une allocation efficace des ressources dans la lutte contre la criminalité.
+
+
 
 ## Organisation du code 
 ### Méthodes de la Classe
