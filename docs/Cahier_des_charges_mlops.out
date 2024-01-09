@@ -1,0 +1,16 @@
+\BOOKMARK [1][-]{section.1}{Contexte et Objectifs}{}% 1
+\BOOKMARK [1][-]{section.2}{Mod\350le}{}% 2
+\BOOKMARK [2][-]{subsection.2.1}{Collecte des donn\351es}{section.2}% 3
+\BOOKMARK [2][-]{subsection.2.2}{Types de crime}{section.2}% 4
+\BOOKMARK [2][-]{subsection.2.3}{Type de r\351gion}{section.2}% 5
+\BOOKMARK [2][-]{subsection.2.4}{Mod\351lisation et Pr\351diction}{section.2}% 6
+\BOOKMARK [2][-]{subsection.2.5}{Code et Impl\351mentation}{section.2}% 7
+\BOOKMARK [2][-]{subsection.2.6}{Exemple d'application}{section.2}% 8
+\BOOKMARK [2][-]{subsection.2.7}{M\351triques d\220\351valuation}{section.2}% 9
+\BOOKMARK [3][-]{subsubsection.2.7.1}{Mean Absolute Error \(MAE\)}{subsection.2.7}% 10
+\BOOKMARK [3][-]{subsubsection.2.7.2}{Root Mean Squared Error \(RMSE\)}{subsection.2.7}% 11
+\BOOKMARK [3][-]{subsubsection.2.7.3}{R2 \(Coefficient de d\351termination\)}{subsection.2.7}% 12
+\BOOKMARK [2][-]{subsection.2.8}{R\351sultats d\220\351valuation}{section.2}% 13
+\BOOKMARK [1][-]{section.3}{API}{}% 14
+\BOOKMARK [1][-]{section.4}{Testing \046 Monitoring}{}% 15
+\BOOKMARK [1][-]{section.5}{Sch\351ma d\220impl\351mentation}{}% 16

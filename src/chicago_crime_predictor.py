@@ -5,8 +5,16 @@ import plotly.graph_objs as go
 from prophet import Prophet
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 from pathlib import Path
+import sqlite3
+from datetime import datetime
 
 class ChicagoCrimePredictor:
+
+    """
+    Cette classe est utilisée pour prédire les crimes à Chicago en utilisant des données historiques
+    et socio-économiques. Elle implémente les fonctionnalités pour charger des données, entraîner un modèle
+    prédictif, faire des prédictions, sauvegarder le modèle, évaluer les performances et visualiser les résultats.
+    """
     dicto_rename_crimes = {
         'ID': 'id',
         'Case Number': 'cas_number',
@@ -44,24 +52,54 @@ class ChicagoCrimePredictor:
         'HARDSHIP INDEX' : 'hardship_index'}
 
     def __init__(self, months_pred, data_dir):
+
+        """
+        Initialise l'instance de ChicagoCrimePredictor.
+
+        :param months_pred: Nombre de mois pour les prédictions futures.
+        :param data_dir: Chemin du répertoire contenant les fichiers de données.
+        """
         self.model = None
         self._month_pred = months_pred
         self.data_dir = Path(data_dir)
 
 
     def load_df_crimes(self):
+
+        """
+
+        Charge les données sur les crimes depuis un fichier CSV.
+
+        :return: DataFrame contenant les données sur les crimes.
+        """
+
         crimes_file_path = self.data_dir / 'Crimes_Chicago.csv'
         df_crimes = pd.read_csv(crimes_file_path, usecols=['Date', 'Primary Type', 'Community Area'], parse_dates=['Date'])
         df_crimes.rename(columns=self.dicto_rename_crimes, inplace=True)
         return df_crimes
 
     def load_df_socio(self):
+        """
+
+        Charge les données socio-économiques depuis un fichier CSV.
+
+        :return: DataFrame contenant les données socio-économiques.
+        """
         socio_file_path = self.data_dir / 'socio_economic_Chicago.csv'
         df_socio = pd.read_csv(socio_file_path)
         df_socio.rename(columns=self.dicto_rename_socio, inplace=True)
         return df_socio
 
     def return_data(self, type_incident, community_area=None):
+
+        """
+
+         Prépare et retourne les données pour l'entraînement et le test du modèle.
+
+        :param type_incident: Type de crime à analyser.
+        :param community_area: Zone communautaire spécifique à filtrer (optionnel).
+        :return: Deux DataFrames - données d'entraînement et de test.
+        """
         # Conversion des chaînes de dates en objets datetime.
         df_crimes = self.load_df_crimes()
         df_socio = self.load_df_socio()
@@ -94,6 +132,12 @@ class ChicagoCrimePredictor:
         return train, test
 
     def model_train(self, data_train):
+        """
+
+         Entraîne le modèle Prophet sur les données fournies.
+
+        :param data_train: DataFrame contenant les données d'entraînement.
+        """
 
         # Créer et entraîner le modèle Prophet
         self.model = Prophet(yearly_seasonality=True,
@@ -106,6 +150,12 @@ class ChicagoCrimePredictor:
 
 
     def model_predict(self):
+
+        """
+        Effectue des prédictions en utilisant le modèle entraîné.
+
+        :return: DataFrame contenant les prévisions et un DataFrame pour les prédictions après la date de séparation.
+        """
         if self.model is None:
             raise ValueError("Le modèle n'a pas encore été entraîné. Utilisez la méthode 'model_train' d'abord.")
 
@@ -117,6 +167,13 @@ class ChicagoCrimePredictor:
         return forecast, predictions
 
     def model_save(self, filename):
+
+        """
+
+         Sauvegarde le modèle entraîné dans un fichier.
+
+        :param filename: Nom du fichier dans lequel sauvegarder le modèle.
+        """
         if self.model is None:
             raise ValueError("Le modèle n'a pas encore été entraîné. Utilisez la méthode 'model_train' d'abord.")
 
@@ -125,6 +182,12 @@ class ChicagoCrimePredictor:
         print(f"Modèle enregistré sous {filename}")
 
     def model_evaluation(self, test, predictions):
+        """
+
+        Évalue le modèle sur les données de test.
+        :param test: DataFrame contenant les données de test.
+        :param predictions: DataFrame contenant les prédictions du modèle.
+        """
 
         if self.model is None:
             raise ValueError("Le modèle n'a pas encore été entraîné. Utilisez la méthode 'model_train' d'abord.")
@@ -134,12 +197,39 @@ class ChicagoCrimePredictor:
         rmse = np.sqrt(mean_squared_error(test['y'], predictions['yhat']))
         # Calcul du R²
         r2 = r2_score(test['y'], predictions['yhat'])
+        # Enregistrement dans la base de données
+        connection = sqlite3.connect('./db/model_evaluation.db')
+        cursor = connection.cursor()
+
+        # Obtention de la date et l'heure actuelles
+        current_date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+        # Préparation de la commande SQL
+        insert_query = '''INSERT INTO model_evaluation (mae, rmse, r2, date)
+                                 VALUES (?, ?, ?, ?)'''
+        data = (mae, rmse, r2, current_date)
+
+        # Exécution de la commande
+        cursor.execute(insert_query, data)
+
+        # Sauvegarde des modifications et fermeture de la connexion
+        connection.commit()
+        connection.close()
+
         # Affichage des métriques d'évaluation
         print(f"Mean Absolute Error (MAE): {mae}")
         print(f"Root Mean Squared Error (RMSE): {rmse}")
         print(f'R²: {r2}')
 
     def model_visualization(self, train, test, predictions):
+        """
+
+        Visualise les données d'entraînement, de test et les prédictions.
+
+        :param train: DataFrame contenant les données d'entraînement.
+        :param test: DataFrame contenant les données de test.
+        :param predictions: DataFrame contenant les prédictions du modèle.
+        """
         # Création des tracés pour Plotly
         trace_train = go.Scatter(x=train['ds'], y=train['y'], mode='lines', name='Training Data')
         trace_test = go.Scatter(x=test['ds'], y=test['y'], mode='lines', name='Test Data')

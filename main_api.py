@@ -89,6 +89,37 @@ async def predict(incident_type: str, community_area: str):
         raise HTTPException(status_code=500, detail=str(e))
 
 
+@app.post("/evaluate/")
+async def evaluate():
+    """
+    Endpoint pour évaluer le modèle et renvoyer les métriques d'évaluation.
+    """
+    try:
+        # Instanciez votre prédicteur (remplacer ... par les paramètres nécessaires)
+        predictor = ChicagoCrimePredictor(...)
+
+        # Chargez le modèle si nécessaire
+        predictor.load_model(model_path)  # Assurez-vous que la méthode existe dans votre classe
+
+        # Obtenez les données de test et les prédictions
+        # Remplacez 'your_test_data' et 'your_predictions' par les méthodes appropriées pour obtenir ces données
+        test_data = predictor.get_test_data()  # À implémenter
+        predictions = predictor.get_predictions(test_data)  # À implémenter
+
+        # Évaluez le modèle en utilisant la méthode model_evaluation
+        mae, rmse, r2 = predictor.model_evaluation(test_data, predictions)
+
+        # Renvoyez les métriques d'évaluation en réponse
+        return {
+            "Mean Absolute Error (MAE)": mae,
+            "Root Mean Squared Error (RMSE)": rmse,
+            "R²": r2
+        }
+    except Exception as e:
+        # En cas d'erreur, renvoyez un message d'erreur
+        raise HTTPException(status_code=500, detail=str(e))
+
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8001)
