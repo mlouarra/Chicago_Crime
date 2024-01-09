@@ -5,6 +5,8 @@ import plotly.graph_objs as go
 from prophet import Prophet
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 from pathlib import Path
+import sqlite3
+from datetime import datetime
 
 class ChicagoCrimePredictor:
 
@@ -195,6 +197,25 @@ class ChicagoCrimePredictor:
         rmse = np.sqrt(mean_squared_error(test['y'], predictions['yhat']))
         # Calcul du R²
         r2 = r2_score(test['y'], predictions['yhat'])
+        # Enregistrement dans la base de données
+        connection = sqlite3.connect('./db/model_evaluation.db')
+        cursor = connection.cursor()
+
+        # Obtention de la date et l'heure actuelles
+        current_date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+        # Préparation de la commande SQL
+        insert_query = '''INSERT INTO model_evaluation (mae, rmse, r2, date)
+                                 VALUES (?, ?, ?, ?)'''
+        data = (mae, rmse, r2, current_date)
+
+        # Exécution de la commande
+        cursor.execute(insert_query, data)
+
+        # Sauvegarde des modifications et fermeture de la connexion
+        connection.commit()
+        connection.close()
+
         # Affichage des métriques d'évaluation
         print(f"Mean Absolute Error (MAE): {mae}")
         print(f"Root Mean Squared Error (RMSE): {rmse}")

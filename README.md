@@ -1,12 +1,10 @@
 ├── config
 
-│── config.yml
-
-└── rename_columns.json
-
 ├── data
 
 ├── docs
+
+├── db
 
 ├── LICENSE
 
