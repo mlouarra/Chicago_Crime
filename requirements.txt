@@ -4,6 +4,8 @@ pandas==2.1.4
 plotly==5.18.0
 prophet==1.1.5
 pytest~=7.4.4
+pytest-mock
+uvicorn
 scikit-learn==1.3.2
 pyjwt~=2.4.0
 fastapi~=0.108.0
@@ -12,3 +14,8 @@ passlib~=1.7.4
 setuptools~=68.2.2
 httpx
 requests
+sqlit
+python-multipart
+python-multipart
+python-multipart
+python-multipart
