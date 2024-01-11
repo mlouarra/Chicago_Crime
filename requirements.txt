@@ -16,6 +16,3 @@ httpx
 requests
 sqlit
 python-multipart
-python-multipart
-python-multipartpa
-python-multipart
