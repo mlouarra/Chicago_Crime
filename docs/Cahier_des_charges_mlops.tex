@@ -5,12 +5,19 @@
 \usepackage{hyperref}
 
 \title{Cahier des Charges Projet MLOps}
-\author{}
-\date{}
+\author{Patricia Wintrebert \\ Mimoune Louarradi}
+\date{11/01/2024}
+\newcommand{\institution}{DataScientest}
 
 \begin{document}
-
+	
 \maketitle
+
+\begin{center}
+	\large \textbf{Organisme :} \institution
+\end{center}
+
+\newpage
 
 \section{Contexte et Objectifs}
 
@@ -146,9 +153,60 @@ Une base de données SQLite a été créée, permettant ainsi l'enregistrement d
 
 
 
+
 \section{API}
 
+\begin{itemize}
+	\item \textbf{Authentification} : Ce point d'accès est crucial pour garantir la sécurité et l'intégrité de l'API. Il permet l'authentification des utilisateurs et administrateurs, en utilisant la méthode d'authentification jetons OAuth. Cette étape assure que seuls les utilisateurs autorisés peuvent accéder aux fonctionnalités de l'API.
+	\item \textbf{Prédiction} : Ce endpoint joue un rôle central dans l'application en permettant aux utilisateurs d'obtenir des prédictions sur les crimes. Il utilise des modèles d'apprentissage automatique en tant que séries temporelles et de traitement de données pour analyser et interpréter les tendances des crimes.
+	\item \textbf{Evaluation} : Ce point d'accès fournit des métriques essentielles sur la performance du modèle de prédiction. Il offre des statistiques telles que l'Erreur Moyenne Absolue (MAE), l'Erreur Quadratique Moyenne (MSE), et le coefficient de détermination (R2). Ces métriques aident à évaluer l'exactitude et la fiabilité du modèle de prédiction.
+	\item \textbf{Réentraînement} : Introduit comme une nouvelle fonctionnalité, ce endpoint permet de réentraîner le modèle de prédiction automatiquement lorsque les métriques de performance tombent en dessous d'un seuil prédéfini. Ce processus assure que le modèle reste performant et précis, en s'adaptant aux nouvelles tendances et données.
+	\item \textbf{Mise à jour des données} : Ce point d'accès est essentiel pour maintenir la pertinence du modèle de prédiction. Il permet une mise à jour régulière et automatique des données utilisées par le modèle, en intégrant les dernières informations relatives aux crimes. Cette mise à jour garantit que le modèle reste efficace et adapté à l'évolution constante des schémas de criminalité.
+\end{itemize}
+
+
 \section{Testing \& Monitoring}
+
+Lors de chaque mise à jour de la branche master du repository, un workflow lance automatiquement différents tests :
+
+\begin{enumerate}
+	\item \texttt{test\_auth.py}: Les tests de ce script utilisent la bibliothèque TestClient et aident à s'assurer que l'application FastAPI fonctionne correctement en vérifiant diverses fonctionnalités telles que l'authentification, la génération de tokens, la vérification de mots de passe et l'accès aux données sécurisées.
+	
+	\item \texttt{test\_verify\_password()} : Ce test vérifie la fonction verify\_password en utilisant une comparaison avec des mots de passe hashés. Il vérifie si la fonction verify\_password renvoie True lorsque le mot de passe fourni correspond au mot de passe hashé, et False lorsque le mot de passe fourni est incorrect.
+	
+	\item \texttt{test\_generate\_token()} : Ce test vérifie la fonction generate\_token. Il génère un token en utilisant un nom d'utilisateur fictif et vérifie si le résultat est une chaîne de caractères non vide (une chaîne de token valide).
+	
+	\item \texttt{test\_login\_success()} : Ce test vérifie la route /login lorsque la tentative de connexion est réussie. Il envoie une requête POST avec un nom d'utilisateur et un mot de passe valides et vérifie si la réponse renvoie un code de statut HTTP 200 (OK) et si un jeton d'accès (access\_token) est présent dans la réponse JSON.
+	
+	\item \texttt{test\_login\_failure()} : Ce test vérifie la route /login lorsque la tentative de connexion échoue en envoyant un mot de passe incorrect. Il envoie une requête POST avec un nom d'utilisateur valide mais un mot de passe incorrect, puis vérifie si la réponse renvoie un code de statut HTTP 401 (Unauthorized) et si aucun jeton d'accès n'est présent dans la réponse JSON.
+	
+	\item \texttt{test\_secure\_data\_with\_token()} : Ce test vérifie la route /secure-data en utilisant un jeton d'accès valide. Il génère un jeton d'accès pour un utilisateur fictif, ajoute ce jeton aux en-têtes de la requête GET, puis vérifie si la réponse renvoie un code de statut HTTP 200 (OK) et si le message dans la réponse JSON indique que les données sont sécurisées pour l'utilisateur spécifié.
+	
+	\item \texttt{test\_secure\_data\_without\_token()} : Ce test vérifie la route /secure-data sans fournir de jeton d'accès. Il envoie une requête GET sans jeton d'accès dans les en-têtes et vérifie si la réponse renvoie un code de statut HTTP 401 (Unauthorized), ce qui signifie que l'accès aux données sécurisées est refusé en l'absence de jeton d'accès.
+	
+	\item \texttt{test.bdd.py} : Ce test utilise la bibliothèque requests pour effectuer une requête GET vers une URL spécifique et vérifier si l'API répond correctement:
+	\begin{itemize}
+		\item \texttt{test\_api\_url()} : Ce test vise à vérifier si l'URL de l'API réagit correctement. Il crée une variable url contenant l'URL de l'API cible, qui est "https://data.cityofchicago.org/resource/ijzp-q8t2.json" dans ce cas. Ensuite, il envoie une requête GET à l'URL à l'aide de requests.get(url). Le test vérifie ensuite si la réponse de la requête renvoie un code de statut HTTP 200 (OK) en utilisant l'assertion assert response.status\_code == 200.
+	\end{itemize}
+	
+	\item \texttt{test\_chicago\_crime\_predictor.py} : Ce script contient une série de tests unitaires pour la classe ChicagoCrimePredictor, qui est une classe utilisée pour prédire les taux de criminalité à Chicago:
+	\begin{itemize}
+		\item \texttt{test\_init()}: Ce test vérifie le constructeur de la classe ChicagoCrimePredictor. Il crée une instance de ChicagoCrimePredictor avec des paramètres spécifiques (6 mois de prévision et un répertoire de données 'data') et vérifie que les attributs de l'instance sont corrects, notamment \_month\_pred est égal à 6, data\_dir est un objet Path pointant vers 'data', et que l'attribut model est initialisé à None.
+		
+		\item \texttt{@fixture mock\_df\_crime} et \texttt{@fixture mock\_df\_socio}: Ces décorateurs de fixture définissent deux DataFrames fictifs (mock\_df\_crime et mock\_df\_socio) qui serviront de données simulées pour les tests.
+		
+		\item \texttt{test\_load\_df\_crimes()}: Ce test vérifie la méthode load\_df\_crimes() de la classe ChicagoCrimePredictor. Il utilise mocker.patch pour simuler l'appel à pandas.read\_csv et vérifie que la méthode retourne un DataFrame qui correspond à mock\_df\_crime.
+		
+		\item \texttt{test\_load\_df\_socio()}: Ce test vérifie la méthode load\_df\_socio() de la classe ChicagoCrimePredictor. Il utilise également mocker.patch pour simuler l'appel à pandas.read\_csv et vérifie que la méthode retourne un DataFrame qui correspond à mock\_df\_socio.
+		
+		\item \texttt{test\_return\_data()}: Ce test vérifie la méthode return\_data() de la classe ChicagoCrimePredictor. Il utilise des simulations pour charger des DataFrames factices et appelle ensuite la méthode pour obtenir les données d'entraînement et de test. Il vérifie que les données retournées sont des objets DataFrame.
+		
+		\item \texttt{test\_model\_train()}: Ce test vérifie la méthode model\_train() de la classe ChicagoCrimePredictor. Il utilise mocker.patch pour simuler l'appel à la méthode fit de la classe Prophet (un modèle de séries temporelles) et vérifie que la méthode model\_train() attribue un modèle Prophet à l'instance de predictor.
+		
+		\item \texttt{test\_model\_predict()}: Ce test vérifie la méthode model\_predict() de la classe ChicagoCrimePredictor. Il simule l'utilisation d'un modèle pré-entraîné, charge ce modèle, attribue le modèle à l'instance de predictor et vérifie que la méthode model\_predict() renvoie des prédictions non vides.
+	\end{itemize}
+\end{enumerate}
+
 
 \section{Schéma d’implémentation}
 

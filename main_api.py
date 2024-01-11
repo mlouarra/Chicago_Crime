@@ -89,7 +89,7 @@ async def predict(incident_type: str, community_area: str):
         raise HTTPException(status_code=500, detail=str(e))
 
 
-@app.post("/evaluate/")
+@app.post("/evaluate/", tags=["Evaluation du modèle"])
 async def evaluate():
     """
     Endpoint pour évaluer le modèle et renvoyer les métriques d'évaluation.
