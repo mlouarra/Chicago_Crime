@@ -3,7 +3,8 @@
 \usepackage[T1]{fontenc}
 \usepackage{graphicx}
 \usepackage{hyperref}
-
+\usepackage{tikz} % Inclusion du package tikz
+\usetikzlibrary{positioning, arrows.meta, shapes.geometric}
 \title{Cahier des Charges Projet MLOps}
 \author{Patricia Wintrebert \\ Mimoune Louarradi}
 \date{11/01/2024}
@@ -209,5 +210,34 @@ Lors de chaque mise à jour de la branche master du repository, un workflow lanc
 
 
 \section{Schéma d’implémentation}
+\begin{tikzpicture}[
+node distance=1.5cm,
+auto,
+block/.style={
+	rectangle,
+	draw,
+	text width=6em,
+	align=center,
+	rounded corners,
+	minimum height=3em
+},
+line/.style={
+	draw, -{Latex[length=2mm]}
+}
+]
+
+% Nodes
+\node[block] (fastapi) {FastAPI Service};
+\node[block, below=of fastapi] (dataupdate) {Data Update Service};
+\node[block, below=of dataupdate] (database) {Database Service};
+\node[block, below=of database] (frontend) {Front-End Service};
+
+% Lines
+\draw[line] (fastapi) -- (dataupdate);
+\draw[line] (dataupdate) -- (database);
+\draw[line] (database) -- (frontend);
+
+\end{tikzpicture}
+
 
 \end{document}
