@@ -7,6 +7,7 @@ from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 from pathlib import Path
 import sqlite3
 from datetime import datetime
+import requests
 
 class ChicagoCrimePredictor:
 
@@ -41,15 +42,15 @@ class ChicagoCrimePredictor:
     }
 
     dicto_rename_socio = {
-        'Community Area Number':'community_area_number',
-        'COMMUNITY AREA NAME':'community_area_name',
-        'PERCENT OF HOUSING CROWDED':'pct_housing_crowded',
-        'PERCENT HOUSEHOLDS BELOW POVERTY':'pct_households_below_poverty',
-        'PERCENT AGED 16+ UNEMPLOYED':'pct_age16_unemployed',
-        'PERCENT AGED 25+ WITHOUT HIGH SCHOOL DIPLOMA':'pct_age25_no_highschool',
+        'Community Area Number': 'community_area_number',
+        'COMMUNITY AREA NAME': 'community_area_name',
+        'PERCENT OF HOUSING CROWDED': 'pct_housing_crowded',
+        'PERCENT HOUSEHOLDS BELOW POVERTY': 'pct_households_below_poverty',
+        'PERCENT AGED 16+ UNEMPLOYED': 'pct_age16_unemployed',
+        'PERCENT AGED 25+ WITHOUT HIGH SCHOOL DIPLOMA': 'pct_age25_no_highschool',
         'PERCENT AGED UNDER 18 OR OVER 64': 'pct_not_working_age',
-        'per_capita_income':'per_capita_income',
-        'HARDSHIP INDEX' : 'hardship_index'}
+        'per_capita_income': 'per_capita_income',
+        'HARDSHIP INDEX': 'hardship_index'}
 
     def __init__(self, months_pred, data_dir):
 
@@ -64,6 +65,52 @@ class ChicagoCrimePredictor:
         self.data_dir = Path(data_dir)
 
 
+
+    def update_crime_data(self):
+        """
+        Met à jour les données sur les crimes en récupérant les dernières entrées depuis l'API.
+        """
+        # Charger le DataFrame existant
+        crimes_file_path = self.data_dir / 'Crimes_Chicago.csv'
+        df_crimes = pd.read_csv(crimes_file_path, parse_dates=['Date'])
+
+        # Trouver la date la plus récente dans le fichier CSV
+        last_date = df_crimes['Date'].max()
+        start_date = last_date + pd.Timedelta(days=1)  # Commencer le jour suivant la dernière date
+
+        # Convertir start_date au format attendu par l'API (YYYY-MM-DD)
+        start_date_str = start_date.strftime('%Y-%m-%d')
+        end_date_str = datetime.now().strftime('%Y-%m-%d')  # Utiliser la date actuelle comme date de fin
+
+        # Préparer l'URL et les paramètres de la requête
+        base_url = "https://data.cityofchicago.org/resource/ijzp-q8t2.json"
+        params = {
+            "$where": f"date >= '{start_date_str}' AND date <= '{end_date_str}'",
+            "$limit": 5000  # Limite adaptée pour votre cas d'utilisation
+        }
+
+        # Effectuer la requête à l'API
+        response = requests.get(base_url, params=params)
+
+        if response.status_code == 200:
+            # Charger les nouvelles données dans un DataFrame
+            new_data = pd.DataFrame(response.json())
+
+            # Renommer les colonnes selon votre dictionnaire
+            new_data.rename(columns=self.dicto_rename_crimes, inplace=True)
+
+            # Convertir les colonnes de date au format datetime
+            new_data['date'] = pd.to_datetime(new_data['date'])
+
+            # Concaténer avec les anciennes données
+            updated_df = pd.concat([df_crimes, new_data], ignore_index=True)
+
+            # Sauvegarder le DataFrame mis à jour dans le fichier CSV
+            updated_df.to_csv(crimes_file_path, index=False)
+            print(f"Les données ont été mises à jour avec succès jusqu'au {end_date_str}.")
+        else:
+            print("Erreur lors de la récupération des données depuis l'API.")
+
     def load_df_crimes(self):
 
         """
@@ -74,7 +121,7 @@ class ChicagoCrimePredictor:
         """
 
         crimes_file_path = self.data_dir / 'Crimes_Chicago.csv'
-        df_crimes = pd.read_csv(crimes_file_path, usecols=['Date', 'Primary Type', 'Community Area'], parse_dates=['Date'])
+        df_crimes = pd.read_csv(crimes_file_path, usecols=['Date', 'Primary Type', 'Community Area'], parse_dates=['Date'], low_memory=False)
         df_crimes.rename(columns=self.dicto_rename_crimes, inplace=True)
         return df_crimes
 
