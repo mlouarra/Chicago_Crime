@@ -7,7 +7,7 @@ from src import chicago_crime_predictor as ccp
 BASE_DIR = Path(__file__).resolve().parent
 
 # Chemins relatifs basés sur le chemin de base
-DATA_DIR = BASE_DIR / 'data' / 'raw'
+DATA_DIR = BASE_DIR / 'data'
 MODELS_DIR = BASE_DIR / 'models'
 
 
@@ -20,6 +20,8 @@ def main():
     # Exemple d'appel de fonction depuis votre module src
 
     obj_predict = ccp.ChicagoCrimePredictor(months_pred=12, data_dir=DATA_DIR)
+    obj_predict.df_process()
+    obj_predict.update_crime_data()
     df_train, df_test = obj_predict.return_data("ASSAULT", 'Austin')
     obj_predict.model_train(df_train)
     forecast, predictions = obj_predict.model_predict()

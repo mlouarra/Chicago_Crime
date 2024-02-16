@@ -42,7 +42,7 @@ class ChicagoCrimePredictor:
     }
 
     dicto_rename_socio = {
-        'Community Area Number': 'community_area_number',
+        'Community Area Number': 'community_area',
         'COMMUNITY AREA NAME': 'community_area_name',
         'PERCENT OF HOUSING CROWDED': 'pct_housing_crowded',
         'PERCENT HOUSEHOLDS BELOW POVERTY': 'pct_households_below_poverty',
@@ -63,19 +63,18 @@ class ChicagoCrimePredictor:
         self.model = None
         self._month_pred = months_pred
         self.data_dir = Path(data_dir)
-
-
+        self.path_raw = self.data_dir / 'raw'
+        self.path_process = self.data_dir/ 'processed'
 
     def update_crime_data(self):
         """
         Met à jour les données sur les crimes en récupérant les dernières entrées depuis l'API.
         """
         # Charger le DataFrame existant
-        crimes_file_path = self.data_dir / 'Crimes_Chicago.csv'
-        df_crimes = pd.read_csv(crimes_file_path, parse_dates=['Date'])
-
+        df_crimes = pd.read_csv(self.path_process.joinpath("Crimes_Chicago.csv"))
         # Trouver la date la plus récente dans le fichier CSV
-        last_date = df_crimes['Date'].max()
+        last_date = df_crimes['date'].max()
+        last_date = pd.to_datetime(last_date)
         start_date = last_date + pd.Timedelta(days=1)  # Commencer le jour suivant la dernière date
 
         # Convertir start_date au format attendu par l'API (YYYY-MM-DD)
@@ -86,7 +85,8 @@ class ChicagoCrimePredictor:
         base_url = "https://data.cityofchicago.org/resource/ijzp-q8t2.json"
         params = {
             "$where": f"date >= '{start_date_str}' AND date <= '{end_date_str}'",
-            "$limit": 5000  # Limite adaptée pour votre cas d'utilisation
+            "$select": "date, community_area, primary_type",
+            "$limit": 500000  # Limite adaptée pour votre cas d'utilisation
         }
 
         # Effectuer la requête à l'API
@@ -106,23 +106,39 @@ class ChicagoCrimePredictor:
             updated_df = pd.concat([df_crimes, new_data], ignore_index=True)
 
             # Sauvegarder le DataFrame mis à jour dans le fichier CSV
-            updated_df.to_csv(crimes_file_path, index=False)
+            updated_df.to_csv(self.path_process.joinpath( "Crimes_Chicago.csv"), index=False)
             print(f"Les données ont été mises à jour avec succès jusqu'au {end_date_str}.")
         else:
             print("Erreur lors de la récupération des données depuis l'API.")
 
+    def df_process(self):
+        """
+
+        Returns:
+
+        """
+
+        crimes_file_path = self.path_raw.joinpath('Crimes_Chicago.csv')
+        df_crimes = pd.read_csv(crimes_file_path, usecols=['Date', 'Primary Type', 'Community Area'], parse_dates=['Date'], low_memory=False)
+        df_crimes.rename(columns={"Date": "date", "Primary Type": "primary_type", 'Community Area': "community_area"}, inplace=True)
+        df_crimes['community_area'] = df_crimes['community_area'].astype('Int64')
+        df_crimes.to_csv(self.path_process.joinpath("Crimes_Chicago.csv"), index=False)
+
+
     def load_df_crimes(self):
+
 
         """
 
         Charge les données sur les crimes depuis un fichier CSV.
 
+
         :return: DataFrame contenant les données sur les crimes.
         """
 
-        crimes_file_path = self.data_dir / 'Crimes_Chicago.csv'
-        df_crimes = pd.read_csv(crimes_file_path, usecols=['Date', 'Primary Type', 'Community Area'], parse_dates=['Date'], low_memory=False)
-        df_crimes.rename(columns=self.dicto_rename_crimes, inplace=True)
+        crimes_file_path = self.path_process.joinpath('Crimes_Chicago.csv')
+        df_crimes = pd.read_csv(crimes_file_path, parse_dates=['date'], low_memory=False)
+
         return df_crimes
 
     def load_df_socio(self):
@@ -132,7 +148,7 @@ class ChicagoCrimePredictor:
 
         :return: DataFrame contenant les données socio-économiques.
         """
-        socio_file_path = self.data_dir / 'socio_economic_Chicago.csv'
+        socio_file_path = self.path_raw.joinpath('socio_economic_Chicago.csv')
         df_socio = pd.read_csv(socio_file_path)
         df_socio.rename(columns=self.dicto_rename_socio, inplace=True)
         return df_socio
@@ -149,10 +165,12 @@ class ChicagoCrimePredictor:
         """
         # Conversion des chaînes de dates en objets datetime.
         df_crimes = self.load_df_crimes()
+        df_crimes['community_area'] = df_crimes['community_area'].astype('Int64')
         df_socio = self.load_df_socio()
+        df_socio['community_area'] = df_socio['community_area'].astype('Int64')
         # Fusion des DataFrames sur 'community_area_number' avec une jointure gauche.
-        df = pd.merge(df_crimes, df_socio[['community_area_number', 'community_area_name']],
-                      on='community_area_number', how='left')
+        df = pd.merge(df_crimes, df_socio[['community_area', 'community_area_name']],
+                      on='community_area', how='left')
         df.sort_values(by="date", inplace=True)
 
         # Filtrage des crimes par type et, si spécifié, par community_area.
