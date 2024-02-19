@@ -25,7 +25,7 @@ def mock_df_crime():
 @fixture
 def mock_df_socio():
     return pd.DataFrame({
-            'community_area_number': [1.0, 2.0, 3.0, 4.0, 5.0],
+            'community_area': [1.0, 2.0, 3.0, 4.0, 5.0],
             'community_area_name': ['Rogers Park', 'West Ridge', 'Uptown', 'Lincoln Square', 'North Center'],
         })
 
