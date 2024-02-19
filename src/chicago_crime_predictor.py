@@ -246,6 +246,17 @@ class ChicagoCrimePredictor:
         joblib.dump(self.model, filename)
         print(f"Modèle enregistré sous {filename}")
 
+
+    def model_load(self, filename):
+        """
+        Charge le modèle entraîné à partir d'un fichier .pkl.
+
+        :param filename: Nom du fichier à partir duquel charger le modèle.
+        :return: Le modèle chargé.
+        """
+        self.model = joblib.load(filename)
+        print(f"Modèle chargé depuis {filename}")
+
     def model_evaluation(self, test, predictions):
         """
 
@@ -285,6 +296,8 @@ class ChicagoCrimePredictor:
         print(f"Mean Absolute Error (MAE): {mae}")
         print(f"Root Mean Squared Error (RMSE): {rmse}")
         print(f'R²: {r2}')
+
+        return mae, rmse, r2
 
     def model_visualization(self, train, test, predictions):
         """

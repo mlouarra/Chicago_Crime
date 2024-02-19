@@ -7,6 +7,11 @@ from typing import Optional
 import jwt
 import datetime
 import secrets
+# Importez la classe Logger
+from src.logger import Logger
+
+# Configurez le logger
+logger = Logger('log.txt').get_logger()
 
 app = FastAPI()
 
@@ -107,3 +112,22 @@ class UserLogin(BaseModel):
     username: str
     password: str
     token: Optional[str] = None  # Champ optionnel pour stocker le token JWT
+
+@app.post("/login")
+async def login(user: UserLogin):
+    try:
+        if verify_password(user.password, hashed_password):
+            # Enregistrez la réussite de la connexion
+            logger.info(f"User {user.username} logged in successfully.")
+            return {"access_token": generate_token(user.username)}
+        else:
+            # Enregistrez l'échec de la connexion
+            logger.warning(f"User {user.username} failed to log in.")
+            raise HTTPException(status_code=401, detail="Incorrect username or password")
+    except HTTPException as e:
+        logger.error(f"HTTPException during login: {e.detail}")
+        raise
+    except Exception as e:
+        # Enregistrez l'exception inattendue
+        logger.exception("Unexpected error during login")
+        raise HTTPException(status_code=500, detail="Internal server error")

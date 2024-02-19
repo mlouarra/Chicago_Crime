@@ -13,7 +13,7 @@ app = FastAPI()
 
 # Chemins relatifs basés sur le chemin de base du fichier main_api.py
 BASE_DIR = Path(__file__).resolve().parent
-DATA_DIR = BASE_DIR / 'data' / 'raw'
+DATA_DIR = BASE_DIR / 'data'
 MODELS_DIR = BASE_DIR / 'models'
 
 # Chargez le modèle pré-entraîné (supposez que c'est un fichier .pkl)
@@ -96,15 +96,15 @@ async def evaluate():
     """
     try:
         # Instanciez votre prédicteur (remplacer ... par les paramètres nécessaires)
-        predictor = ChicagoCrimePredictor(...)
+        predictor = ChicagoCrimePredictor(months_pred=12, data_dir=DATA_DIR)
 
         # Chargez le modèle si nécessaire
-        predictor.load_model(model_path)  # Assurez-vous que la méthode existe dans votre classe
+        predictor.model_load(model_path)  # Assurez-vous que la méthode existe dans votre classe
 
         # Obtenez les données de test et les prédictions
         # Remplacez 'your_test_data' et 'your_predictions' par les méthodes appropriées pour obtenir ces données
-        test_data = predictor.get_test_data()  # À implémenter
-        predictions = predictor.get_predictions(test_data)  # À implémenter
+        _, test_data = predictor.return_data("ASSAULT", 'Austin')
+        _, predictions = predictor.model_predict()
 
         # Évaluez le modèle en utilisant la méthode model_evaluation
         mae, rmse, r2 = predictor.model_evaluation(test_data, predictions)
