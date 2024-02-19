@@ -20,7 +20,7 @@ def mock_df_crime():
     return pd.DataFrame({
         'date': pd.to_datetime(['2015-03-18 12:00:00', '2018-12-20 15:00:00']),
         'primary_type': ['DECEPTIVE PRACTICE', 'ROBBERY'],
-        'community_area_number': [32.0, 19.0]
+        'community_area': [32.0, 19.0]
     })
 @fixture
 def mock_df_socio():
