@@ -8,6 +8,12 @@ from fastapi.security import OAuth2PasswordRequestForm
 from pathlib import Path
 import joblib
 
+# Importez la classe Logger
+from src.logger import Logger
+
+# Configurez le logger
+logger = Logger('log.txt').get_logger()
+
 # Instanciez l'application FastAPI
 app = FastAPI()
 
@@ -38,10 +44,13 @@ async def login(form_data: OAuth2PasswordRequestForm = Depends()):
     try:
         if form_data.username == username and verify_password(form_data.password, hashed_password):
             token = generate_token(username)
+            logger.info(f"User {form_data.username} logged in successfully.")
             return {'access_token': token, 'token_type': 'bearer'}
         else:
+            logger.warning(f"Failed login attempt for user {form_data.username}.")
             raise HTTPException(status_code=401, detail='Échec de l\'authentification')
     except passlib.exc.UnknownHashError:
+        logger.error('Internal server error: Unknown hash format.')
         raise HTTPException(status_code=500, detail='Erreur interne du serveur : Format de hachage inconnu')
 
 # Route sécurisée nécessitant un token
@@ -62,10 +71,13 @@ async def secure_data(current_user: str = Depends(oauth2_scheme)):
     try:
         payload = jwt.decode(current_user, SECRET_KEY, algorithms=[ALGORITHM])
         current_username = payload['sub']
+        logger.info(f"Access to secure data by user {current_username}.")
         return {'message': f'Données sécurisées pour l\'utilisateur {current_username}'}
     except jwt.ExpiredSignatureError:
+        logger.warning('Token expired.')
         raise HTTPException(status_code=401, detail='Token expiré')
     except jwt.InvalidTokenError:
+        logger.warning('Invalid token.')
         raise HTTPException(status_code=401, detail='Token invalide')
 
 @app.post("/predict/", tags=["Prédiction"])
@@ -81,10 +93,11 @@ async def predict(incident_type: str, community_area: str):
         # Appel des méthodes de prédiction
         df_train, df_test = predictor.return_data(incident_type, community_area)
         forecast, predictions = predictor.model_predict()
-
+        logger.info(f"Prediction request for incident type {incident_type} in community area {community_area}.")
         # Renvoyer les prédictions
         return {"forecast": forecast.to_dict('records'), "predictions": predictions.to_dict('records')}
     except Exception as e:
+        logger.exception("Unexpected error during prediction.")
         # En cas d'erreur, renvoyez un message d'erreur
         raise HTTPException(status_code=500, detail=str(e))
 
@@ -108,6 +121,7 @@ async def evaluate():
 
         # Évaluez le modèle en utilisant la méthode model_evaluation
         mae, rmse, r2 = predictor.model_evaluation(test_data, predictions)
+        logger.info("Model evaluation completed.")
 
         # Renvoyez les métriques d'évaluation en réponse
         return {
@@ -117,6 +131,7 @@ async def evaluate():
         }
     except Exception as e:
         # En cas d'erreur, renvoyez un message d'erreur
+        logger.exception("Unexpected error during model evaluation.")
         raise HTTPException(status_code=500, detail=str(e))
 
 

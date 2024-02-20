@@ -9,6 +9,13 @@ import sqlite3
 from datetime import datetime
 import requests
 
+# Importez la classe Logger
+from src.logger import Logger
+
+# Configurez le logger
+logger = Logger('log.txt').get_logger()
+
+
 class ChicagoCrimePredictor:
 
     """
@@ -70,12 +77,15 @@ class ChicagoCrimePredictor:
         """
         Met à jour les données sur les crimes en récupérant les dernières entrées depuis l'API.
         """
+        logger.info("Début de la mise à jour des données sur les crimes depuis l'API.")
         # Charger le DataFrame existant
+        logger.info("lecture du fichier Crime_Chicago.csv")
         df_crimes = pd.read_csv(self.path_process.joinpath("Crimes_Chicago.csv"))
         # Trouver la date la plus récente dans le fichier CSV
         last_date = df_crimes['date'].max()
+        logger.info(f"la date max est {last_date}")
         last_date = pd.to_datetime(last_date)
-        start_date = last_date + pd.Timedelta(days=1)  # Commencer le jour suivant la dernière date
+        start_date = last_date + pd.Timedelta(days=1)  # Commencer le jour suivant la d
 
         # Convertir start_date au format attendu par l'API (YYYY-MM-DD)
         start_date_str = start_date.strftime('%Y-%m-%d')
@@ -93,23 +103,25 @@ class ChicagoCrimePredictor:
         response = requests.get(base_url, params=params)
 
         if response.status_code == 200:
+            logger.info(f"Données mises à jour avec succès jusqu'au {end_date_str}.")
             # Charger les nouvelles données dans un DataFrame
             new_data = pd.DataFrame(response.json())
-
-            # Renommer les colonnes selon votre dictionnaire
-            new_data.rename(columns=self.dicto_rename_crimes, inplace=True)
-
-            # Convertir les colonnes de date au format datetime
-            new_data['date'] = pd.to_datetime(new_data['date'])
-
-            # Concaténer avec les anciennes données
-            updated_df = pd.concat([df_crimes, new_data], ignore_index=True)
-
-            # Sauvegarder le DataFrame mis à jour dans le fichier CSV
-            updated_df.to_csv(self.path_process.joinpath( "Crimes_Chicago.csv"), index=False)
-            print(f"Les données ont été mises à jour avec succès jusqu'au {end_date_str}.")
         else:
-            print("Erreur lors de la récupération des données depuis l'API.")
+            logger.error(f"Erreur lors de la récupération des données depuis l'API. Code d'erreur : {response.status_code}")
+
+        # Renommer les colonnes selon votre dictionnaire
+        new_data.rename(columns=self.dicto_rename_crimes, inplace=True)
+
+        # Convertir les colonnes de date au format datetime
+        new_data['date'] = pd.to_datetime(new_data['date'])
+
+        # Concaténer avec les anciennes données
+        updated_df = pd.concat([df_crimes, new_data], ignore_index=True)
+
+        # Sauvegarder le DataFrame mis à jour dans le fichier CSV
+        updated_df.to_csv(self.path_process.joinpath( "Crimes_Chicago.csv"), index=False)
+
+
 
     def df_process(self):
         """
@@ -293,9 +305,7 @@ class ChicagoCrimePredictor:
         connection.close()
 
         # Affichage des métriques d'évaluation
-        print(f"Mean Absolute Error (MAE): {mae}")
-        print(f"Root Mean Squared Error (RMSE): {rmse}")
-        print(f'R²: {r2}')
+        logger.info(f"Évaluation du modèle terminée. MAE: {mae}, RMSE: {rmse}, R²: {r2}")
 
         return mae, rmse, r2
 
