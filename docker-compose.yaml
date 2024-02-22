@@ -145,6 +145,8 @@ services:
   airflow-worker:
     <<: *airflow-common
     command: celery worker
+    volumes:
+      - ${AIRFLOW_PROJ_DIR}:/opt/airflow
     healthcheck:
       # yamllint disable rule:line-length
       test:

@@ -1,0 +1,21 @@
+FROM apache/airflow:2.8.1
+
+RUN pip install --upgrade pip
+
+COPY requirements.txt /opt/airflow/requirements.txt
+
+WORKDIR /opt/airflow/
+
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copier des dossiers dans le conteneur Airflow
+COPY ./dags /opt/airflow/dags
+COPY ./src /opt/airflow/src
+COPY ./data/processed/Crimes_Chicago.csv /opt/airflow/src/processed/Crimes_Chicago.csv
+COPY main.py /opt/airflow/src
+COPY ./plugins /opt/airflow/plugins
+COPY ./config /opt/airflow/config
+
+ENV AIRFLOW__CORE__EXECUTOR=LocalExecutor
+ENV PYTHONPATH="${PYTHONPATH}:/opt/airflow/src"
+
