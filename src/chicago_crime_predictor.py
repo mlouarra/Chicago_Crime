@@ -8,6 +8,7 @@ from pathlib import Path
 import sqlite3
 from datetime import datetime
 import requests
+import os
 
 # Importez la classe Logger
 from src.logger import Logger
@@ -286,7 +287,13 @@ class ChicagoCrimePredictor:
         # Calcul du R²
         r2 = r2_score(test['y'], predictions['yhat'])
         # Enregistrement dans la base de données
-        connection = sqlite3.connect('/opt/airflow/db/model_evaluation.db')
+        # Chemin par défaut pour exécution directe, modifiez-le selon votre structure de dossiers
+        default_db_path = './db/model_evaluation.db'
+
+        # Utilisez la variable d'environnement si elle est définie, sinon utilisez le chemin par défaut
+        database_path = os.getenv('DATABASE_PATH', default_db_path)
+        connection = sqlite3.connect(database_path)
+
         cursor = connection.cursor()
 
         # Obtention de la date et l'heure actuelles

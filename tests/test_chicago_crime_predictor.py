@@ -1,13 +1,14 @@
 # contenu de tests/test_chicago_crime_predictor.py
 from pathlib import Path
-
+import sys
 import joblib
 import pandas as pd
 from prophet import Prophet
 from pytest import fixture
-
+sys.path.append(str(Path(__file__).parent.parent))
+print(sys.path.append(str(Path(__file__).parent.parent)))
+sys.path.append(str(Path(__file__).resolve().parents[1]))
 from src.chicago_crime_predictor import ChicagoCrimePredictor
-
 
 def test_init():
     predictor = ChicagoCrimePredictor(months_pred=6, data_dir='data')

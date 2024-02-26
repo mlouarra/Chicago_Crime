@@ -1,4 +1,7 @@
 import pytest
+from pathlib import Path
+import sys
+sys.path.append(str(Path(__file__).parent.parent))
 from fastapi.testclient import TestClient
 from main_api import (app, verify_password, generate_token)
 
