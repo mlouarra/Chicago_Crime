@@ -286,7 +286,7 @@ class ChicagoCrimePredictor:
         # Calcul du R²
         r2 = r2_score(test['y'], predictions['yhat'])
         # Enregistrement dans la base de données
-        connection = sqlite3.connect('./db/model_evaluation.db')
+        connection = sqlite3.connect('/opt/airflow/db/model_evaluation.db')
         cursor = connection.cursor()
 
         # Obtention de la date et l'heure actuelles
