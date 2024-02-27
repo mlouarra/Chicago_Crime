@@ -1,0 +1,26 @@
+[2024-02-22T14:14:31.763+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: update_chicago_crime_data.update_crime_data_task manual__2024-02-22T14:14:28.462803+00:00 [queued]>
+[2024-02-22T14:14:31.778+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: update_chicago_crime_data.update_crime_data_task manual__2024-02-22T14:14:28.462803+00:00 [queued]>
+[2024-02-22T14:14:31.779+0000] {taskinstance.py:2170} INFO - Starting attempt 1 of 2
+[2024-02-22T14:14:31.808+0000] {taskinstance.py:2191} INFO - Executing <Task(PythonOperator): update_crime_data_task> on 2024-02-22 14:14:28.462803+00:00
+[2024-02-22T14:14:31.812+0000] {standard_task_runner.py:60} INFO - Started process 286 to run task
+[2024-02-22T14:14:31.817+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', 'update_chicago_crime_data', 'update_crime_data_task', 'manual__2024-02-22T14:14:28.462803+00:00', '--job-id', '71', '--raw', '--subdir', 'DAGS_FOLDER/update_data.py', '--cfg-path', '/tmp/tmphd1jek8n']
+[2024-02-22T14:14:31.820+0000] {standard_task_runner.py:88} INFO - Job 71: Subtask update_crime_data_task
+[2024-02-22T14:14:31.899+0000] {task_command.py:423} INFO - Running <TaskInstance: update_chicago_crime_data.update_crime_data_task manual__2024-02-22T14:14:28.462803+00:00 [running]> on host d31de7708c42
+[2024-02-22T14:14:32.049+0000] {taskinstance.py:2480} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='Patricia' AIRFLOW_CTX_DAG_ID='update_chicago_crime_data' AIRFLOW_CTX_TASK_ID='update_crime_data_task' AIRFLOW_CTX_EXECUTION_DATE='2024-02-22T14:14:28.462803+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2024-02-22T14:14:28.462803+00:00'
+[2024-02-22T14:14:32.481+0000] {__init__.py:531} WARNING - Matplotlib created a temporary cache directory at /tmp/matplotlib-kuxnns1q because the default path (/home/airflow/.cache/matplotlib) is not a writable directory; it is highly recommended to set the MPLCONFIGDIR environment variable to a writable directory, in particular to speed up the import of Matplotlib and to better support multiprocessing.
+[2024-02-22T14:14:33.227+0000] {font_manager.py:1547} INFO - generated new fontManager
+[2024-02-22T14:14:34.845+0000] {taskinstance.py:2698} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/models/taskinstance.py", line 433, in _execute_task
+    result = execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 199, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 216, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/update_data.py", line 37, in task_update_crime_data
+    from chicago_crime_predictor import update_crime_data
+ImportError: cannot import name 'update_crime_data' from 'chicago_crime_predictor' (/opt/airflow/src/chicago_crime_predictor.py)
+[2024-02-22T14:14:34.858+0000] {taskinstance.py:1138} INFO - Marking task as UP_FOR_RETRY. dag_id=update_chicago_crime_data, task_id=update_crime_data_task, execution_date=20240222T141428, start_date=20240222T141431, end_date=20240222T141434
+[2024-02-22T14:14:34.889+0000] {standard_task_runner.py:107} ERROR - Failed to execute job 71 for task update_crime_data_task (cannot import name 'update_crime_data' from 'chicago_crime_predictor' (/opt/airflow/src/chicago_crime_predictor.py); 286)
+[2024-02-22T14:14:34.923+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 1
+[2024-02-22T14:14:34.953+0000] {taskinstance.py:3280} INFO - 0 downstream tasks scheduled from follow-on schedule check

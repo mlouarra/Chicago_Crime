@@ -19,10 +19,10 @@ default_args = {
 }
 
 # Chemin absolu du répertoire parent des DAGs
-parent_dir = os.path.dirname(os.path.abspath(__file__))
+#parent_dir = os.path.dirname(os.path.abspath(__file__))
 
 # Chemin du répertoire src pour importer chicago_crime_predictor
-sys.path.append(os.path.join(parent_dir, '../src'))
+#sys.path.append(os.path.join(parent_dir, '../src'))
 
 # Définition du DAG
 dag = DAG(
@@ -33,6 +33,7 @@ dag = DAG(
 )
 
 def task_update_crime_data():
+    sys.path.insert(0, '/opt/airflow/Chicago_Crime')
     from chicago_crime_predictor import ChicagoCrimePredictor
     ccp = ChicagoCrimePredictor(months_pred=3, data_dir='/opt/airflow/src')
     ccp.update_crime_data()

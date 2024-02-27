@@ -2,6 +2,7 @@ from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
 from datetime import datetime, timedelta
 import os
+import sys
 
 # Définition des arguments par défaut du DAG
 default_args = {
@@ -17,7 +18,7 @@ default_args = {
 }
 
 # Récupérer le chemin absolu du répertoire parent des DAGs
-parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
+#parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
 
 # Définition du DAG
 dag = DAG(
@@ -29,9 +30,12 @@ dag = DAG(
 
 # Fonction à exécuter par l'opérateur PythonOperator
 def run_main_py():
-    import subprocess
-    script_path = os.path.join(parent_dir, 'main.py')
-    subprocess.run(['python3', script_path])
+    #import subprocess
+    #script_path = os.path.join(parent_dir, 'main.py')
+    #subprocess.run(['python3', script_path])
+    sys.path.insert(0, '/opt/airflow/Chicago_Crime')  # Ajoutez le chemin du projet
+    from main import main  # Importez la fonction main depuis le fichier main.py
+    main()
 
 # Opérateur PythonOperator pour exécuter le script main.py
 run_main_task = PythonOperator(

@@ -1,0 +1,217 @@
+[2024-02-23T16:33:09.871+0000] {processor.py:161} INFO - Started process (PID=41) to work on /opt/airflow/dags/update_data.py
+[2024-02-23T16:33:09.875+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/update_data.py for tasks to queue
+[2024-02-23T16:33:09.885+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:33:09.884+0000] {dagbag.py:538} INFO - Filling up the DagBag from /opt/airflow/dags/update_data.py
+[2024-02-23T16:33:09.978+0000] {processor.py:840} INFO - DAG(s) 'update_chicago_crime_data' retrieved from /opt/airflow/dags/update_data.py
+[2024-02-23T16:33:10.667+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:33:10.666+0000] {dag.py:3036} INFO - Sync 1 DAGs
+[2024-02-23T16:33:10.753+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:33:10.752+0000] {dag.py:3823} INFO - Setting next_dagrun for update_chicago_crime_data to 2024-02-18 00:00:00+00:00, run_after=2024-02-25 00:00:00+00:00
+[2024-02-23T16:33:10.852+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/update_data.py took 1.003 seconds
+[2024-02-23T16:33:41.174+0000] {processor.py:161} INFO - Started process (PID=98) to work on /opt/airflow/dags/update_data.py
+[2024-02-23T16:33:41.176+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/update_data.py for tasks to queue
+[2024-02-23T16:33:41.179+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:33:41.178+0000] {dagbag.py:538} INFO - Filling up the DagBag from /opt/airflow/dags/update_data.py
+[2024-02-23T16:33:41.193+0000] {processor.py:840} INFO - DAG(s) 'update_chicago_crime_data' retrieved from /opt/airflow/dags/update_data.py
+[2024-02-23T16:33:41.224+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:33:41.224+0000] {dag.py:3036} INFO - Sync 1 DAGs
+[2024-02-23T16:33:41.273+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:33:41.273+0000] {dag.py:3823} INFO - Setting next_dagrun for update_chicago_crime_data to 2024-02-18 00:00:00+00:00, run_after=2024-02-25 00:00:00+00:00
+[2024-02-23T16:33:41.308+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/update_data.py took 0.140 seconds
+[2024-02-23T16:34:11.440+0000] {processor.py:161} INFO - Started process (PID=155) to work on /opt/airflow/dags/update_data.py
+[2024-02-23T16:34:11.442+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/update_data.py for tasks to queue
+[2024-02-23T16:34:11.445+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:34:11.444+0000] {dagbag.py:538} INFO - Filling up the DagBag from /opt/airflow/dags/update_data.py
+[2024-02-23T16:34:11.458+0000] {processor.py:840} INFO - DAG(s) 'update_chicago_crime_data' retrieved from /opt/airflow/dags/update_data.py
+[2024-02-23T16:34:11.487+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:34:11.487+0000] {dag.py:3036} INFO - Sync 1 DAGs
+[2024-02-23T16:34:11.528+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:34:11.528+0000] {dag.py:3823} INFO - Setting next_dagrun for update_chicago_crime_data to 2024-02-18 00:00:00+00:00, run_after=2024-02-25 00:00:00+00:00
+[2024-02-23T16:34:11.559+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/update_data.py took 0.124 seconds
+[2024-02-23T16:34:41.895+0000] {processor.py:161} INFO - Started process (PID=212) to work on /opt/airflow/dags/update_data.py
+[2024-02-23T16:34:41.897+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/update_data.py for tasks to queue
+[2024-02-23T16:34:41.900+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:34:41.899+0000] {dagbag.py:538} INFO - Filling up the DagBag from /opt/airflow/dags/update_data.py
+[2024-02-23T16:34:41.917+0000] {processor.py:840} INFO - DAG(s) 'update_chicago_crime_data' retrieved from /opt/airflow/dags/update_data.py
+[2024-02-23T16:34:41.949+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:34:41.948+0000] {dag.py:3036} INFO - Sync 1 DAGs
+[2024-02-23T16:34:41.987+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:34:41.987+0000] {dag.py:3823} INFO - Setting next_dagrun for update_chicago_crime_data to 2024-02-18 00:00:00+00:00, run_after=2024-02-25 00:00:00+00:00
+[2024-02-23T16:34:42.030+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/update_data.py took 0.140 seconds
+[2024-02-23T16:35:12.482+0000] {processor.py:161} INFO - Started process (PID=269) to work on /opt/airflow/dags/update_data.py
+[2024-02-23T16:35:12.483+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/update_data.py for tasks to queue
+[2024-02-23T16:35:12.486+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:35:12.486+0000] {dagbag.py:538} INFO - Filling up the DagBag from /opt/airflow/dags/update_data.py
+[2024-02-23T16:35:12.500+0000] {processor.py:840} INFO - DAG(s) 'update_chicago_crime_data' retrieved from /opt/airflow/dags/update_data.py
+[2024-02-23T16:35:12.539+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:35:12.538+0000] {dag.py:3036} INFO - Sync 1 DAGs
+[2024-02-23T16:35:12.581+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:35:12.581+0000] {dag.py:3823} INFO - Setting next_dagrun for update_chicago_crime_data to 2024-02-18 00:00:00+00:00, run_after=2024-02-25 00:00:00+00:00
+[2024-02-23T16:35:12.610+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/update_data.py took 0.134 seconds
+[2024-02-23T16:35:42.726+0000] {processor.py:161} INFO - Started process (PID=327) to work on /opt/airflow/dags/update_data.py
+[2024-02-23T16:35:42.727+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/update_data.py for tasks to queue
+[2024-02-23T16:35:42.731+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:35:42.730+0000] {dagbag.py:538} INFO - Filling up the DagBag from /opt/airflow/dags/update_data.py
+[2024-02-23T16:35:42.745+0000] {processor.py:840} INFO - DAG(s) 'update_chicago_crime_data' retrieved from /opt/airflow/dags/update_data.py
+[2024-02-23T16:35:42.787+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:35:42.787+0000] {dag.py:3036} INFO - Sync 1 DAGs
+[2024-02-23T16:35:42.835+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:35:42.835+0000] {dag.py:3823} INFO - Setting next_dagrun for update_chicago_crime_data to 2024-02-18 00:00:00+00:00, run_after=2024-02-25 00:00:00+00:00
+[2024-02-23T16:35:42.869+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/update_data.py took 0.165 seconds
+[2024-02-23T16:36:13.151+0000] {processor.py:161} INFO - Started process (PID=384) to work on /opt/airflow/dags/update_data.py
+[2024-02-23T16:36:13.153+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/update_data.py for tasks to queue
+[2024-02-23T16:36:13.156+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:36:13.155+0000] {dagbag.py:538} INFO - Filling up the DagBag from /opt/airflow/dags/update_data.py
+[2024-02-23T16:36:13.172+0000] {processor.py:840} INFO - DAG(s) 'update_chicago_crime_data' retrieved from /opt/airflow/dags/update_data.py
+[2024-02-23T16:36:13.207+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:36:13.207+0000] {dag.py:3036} INFO - Sync 1 DAGs
+[2024-02-23T16:36:13.258+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:36:13.257+0000] {dag.py:3823} INFO - Setting next_dagrun for update_chicago_crime_data to 2024-02-18 00:00:00+00:00, run_after=2024-02-25 00:00:00+00:00
+[2024-02-23T16:36:13.288+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/update_data.py took 0.144 seconds
+[2024-02-23T16:36:44.112+0000] {processor.py:161} INFO - Started process (PID=441) to work on /opt/airflow/dags/update_data.py
+[2024-02-23T16:36:44.113+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/update_data.py for tasks to queue
+[2024-02-23T16:36:44.116+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:36:44.115+0000] {dagbag.py:538} INFO - Filling up the DagBag from /opt/airflow/dags/update_data.py
+[2024-02-23T16:36:44.128+0000] {processor.py:840} INFO - DAG(s) 'update_chicago_crime_data' retrieved from /opt/airflow/dags/update_data.py
+[2024-02-23T16:36:44.159+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:36:44.159+0000] {dag.py:3036} INFO - Sync 1 DAGs
+[2024-02-23T16:36:44.202+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:36:44.201+0000] {dag.py:3823} INFO - Setting next_dagrun for update_chicago_crime_data to 2024-02-18 00:00:00+00:00, run_after=2024-02-25 00:00:00+00:00
+[2024-02-23T16:36:44.233+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/update_data.py took 0.126 seconds
+[2024-02-23T16:37:14.310+0000] {processor.py:161} INFO - Started process (PID=498) to work on /opt/airflow/dags/update_data.py
+[2024-02-23T16:37:14.311+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/update_data.py for tasks to queue
+[2024-02-23T16:37:14.314+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:37:14.314+0000] {dagbag.py:538} INFO - Filling up the DagBag from /opt/airflow/dags/update_data.py
+[2024-02-23T16:37:14.328+0000] {processor.py:840} INFO - DAG(s) 'update_chicago_crime_data' retrieved from /opt/airflow/dags/update_data.py
+[2024-02-23T16:37:14.362+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:37:14.362+0000] {dag.py:3036} INFO - Sync 1 DAGs
+[2024-02-23T16:37:14.405+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:37:14.405+0000] {dag.py:3823} INFO - Setting next_dagrun for update_chicago_crime_data to 2024-02-18 00:00:00+00:00, run_after=2024-02-25 00:00:00+00:00
+[2024-02-23T16:37:14.442+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/update_data.py took 0.137 seconds
+[2024-02-23T16:37:45.136+0000] {processor.py:161} INFO - Started process (PID=555) to work on /opt/airflow/dags/update_data.py
+[2024-02-23T16:37:45.137+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/update_data.py for tasks to queue
+[2024-02-23T16:37:45.140+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:37:45.139+0000] {dagbag.py:538} INFO - Filling up the DagBag from /opt/airflow/dags/update_data.py
+[2024-02-23T16:37:45.153+0000] {processor.py:840} INFO - DAG(s) 'update_chicago_crime_data' retrieved from /opt/airflow/dags/update_data.py
+[2024-02-23T16:37:45.202+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:37:45.201+0000] {dag.py:3036} INFO - Sync 1 DAGs
+[2024-02-23T16:37:45.256+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:37:45.255+0000] {dag.py:3823} INFO - Setting next_dagrun for update_chicago_crime_data to 2024-02-18 00:00:00+00:00, run_after=2024-02-25 00:00:00+00:00
+[2024-02-23T16:37:45.291+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/update_data.py took 0.166 seconds
+[2024-02-23T16:38:16.150+0000] {processor.py:161} INFO - Started process (PID=612) to work on /opt/airflow/dags/update_data.py
+[2024-02-23T16:38:16.152+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/update_data.py for tasks to queue
+[2024-02-23T16:38:16.154+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:38:16.154+0000] {dagbag.py:538} INFO - Filling up the DagBag from /opt/airflow/dags/update_data.py
+[2024-02-23T16:38:16.181+0000] {processor.py:840} INFO - DAG(s) 'update_chicago_crime_data' retrieved from /opt/airflow/dags/update_data.py
+[2024-02-23T16:38:16.211+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:38:16.210+0000] {dag.py:3036} INFO - Sync 1 DAGs
+[2024-02-23T16:38:16.250+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:38:16.250+0000] {dag.py:3823} INFO - Setting next_dagrun for update_chicago_crime_data to 2024-02-18 00:00:00+00:00, run_after=2024-02-25 00:00:00+00:00
+[2024-02-23T16:38:16.279+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/update_data.py took 0.134 seconds
+[2024-02-23T16:38:47.052+0000] {processor.py:161} INFO - Started process (PID=668) to work on /opt/airflow/dags/update_data.py
+[2024-02-23T16:38:47.055+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/update_data.py for tasks to queue
+[2024-02-23T16:38:47.061+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:38:47.060+0000] {dagbag.py:538} INFO - Filling up the DagBag from /opt/airflow/dags/update_data.py
+[2024-02-23T16:38:47.077+0000] {processor.py:840} INFO - DAG(s) 'update_chicago_crime_data' retrieved from /opt/airflow/dags/update_data.py
+[2024-02-23T16:38:47.113+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:38:47.113+0000] {dag.py:3036} INFO - Sync 1 DAGs
+[2024-02-23T16:38:47.163+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:38:47.162+0000] {dag.py:3823} INFO - Setting next_dagrun for update_chicago_crime_data to 2024-02-18 00:00:00+00:00, run_after=2024-02-25 00:00:00+00:00
+[2024-02-23T16:38:47.200+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/update_data.py took 0.153 seconds
+[2024-02-23T16:39:17.662+0000] {processor.py:161} INFO - Started process (PID=725) to work on /opt/airflow/dags/update_data.py
+[2024-02-23T16:39:17.664+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/update_data.py for tasks to queue
+[2024-02-23T16:39:17.668+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:39:17.667+0000] {dagbag.py:538} INFO - Filling up the DagBag from /opt/airflow/dags/update_data.py
+[2024-02-23T16:39:17.683+0000] {processor.py:840} INFO - DAG(s) 'update_chicago_crime_data' retrieved from /opt/airflow/dags/update_data.py
+[2024-02-23T16:39:17.719+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:39:17.718+0000] {dag.py:3036} INFO - Sync 1 DAGs
+[2024-02-23T16:39:17.762+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:39:17.762+0000] {dag.py:3823} INFO - Setting next_dagrun for update_chicago_crime_data to 2024-02-18 00:00:00+00:00, run_after=2024-02-25 00:00:00+00:00
+[2024-02-23T16:39:17.795+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/update_data.py took 0.140 seconds
+[2024-02-23T16:39:47.966+0000] {processor.py:161} INFO - Started process (PID=782) to work on /opt/airflow/dags/update_data.py
+[2024-02-23T16:39:47.968+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/update_data.py for tasks to queue
+[2024-02-23T16:39:47.972+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:39:47.972+0000] {dagbag.py:538} INFO - Filling up the DagBag from /opt/airflow/dags/update_data.py
+[2024-02-23T16:39:47.990+0000] {processor.py:840} INFO - DAG(s) 'update_chicago_crime_data' retrieved from /opt/airflow/dags/update_data.py
+[2024-02-23T16:39:48.030+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:39:48.029+0000] {dag.py:3036} INFO - Sync 1 DAGs
+[2024-02-23T16:39:48.081+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:39:48.080+0000] {dag.py:3823} INFO - Setting next_dagrun for update_chicago_crime_data to 2024-02-18 00:00:00+00:00, run_after=2024-02-25 00:00:00+00:00
+[2024-02-23T16:39:48.122+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/update_data.py took 0.163 seconds
+[2024-02-23T16:40:18.877+0000] {processor.py:161} INFO - Started process (PID=839) to work on /opt/airflow/dags/update_data.py
+[2024-02-23T16:40:18.880+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/update_data.py for tasks to queue
+[2024-02-23T16:40:18.886+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:40:18.886+0000] {dagbag.py:538} INFO - Filling up the DagBag from /opt/airflow/dags/update_data.py
+[2024-02-23T16:40:18.907+0000] {processor.py:840} INFO - DAG(s) 'update_chicago_crime_data' retrieved from /opt/airflow/dags/update_data.py
+[2024-02-23T16:40:18.952+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:40:18.951+0000] {dag.py:3036} INFO - Sync 1 DAGs
+[2024-02-23T16:40:19.023+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:40:19.023+0000] {dag.py:3823} INFO - Setting next_dagrun for update_chicago_crime_data to 2024-02-18 00:00:00+00:00, run_after=2024-02-25 00:00:00+00:00
+[2024-02-23T16:40:19.077+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/update_data.py took 0.209 seconds
+[2024-02-23T16:40:49.657+0000] {processor.py:161} INFO - Started process (PID=897) to work on /opt/airflow/dags/update_data.py
+[2024-02-23T16:40:49.660+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/update_data.py for tasks to queue
+[2024-02-23T16:40:49.664+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:40:49.664+0000] {dagbag.py:538} INFO - Filling up the DagBag from /opt/airflow/dags/update_data.py
+[2024-02-23T16:40:49.677+0000] {processor.py:840} INFO - DAG(s) 'update_chicago_crime_data' retrieved from /opt/airflow/dags/update_data.py
+[2024-02-23T16:40:49.740+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:40:49.739+0000] {dag.py:3036} INFO - Sync 1 DAGs
+[2024-02-23T16:40:49.790+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:40:49.789+0000] {dag.py:3823} INFO - Setting next_dagrun for update_chicago_crime_data to 2024-02-18 00:00:00+00:00, run_after=2024-02-25 00:00:00+00:00
+[2024-02-23T16:40:49.879+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/update_data.py took 0.228 seconds
+[2024-02-23T16:41:20.060+0000] {processor.py:161} INFO - Started process (PID=954) to work on /opt/airflow/dags/update_data.py
+[2024-02-23T16:41:20.062+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/update_data.py for tasks to queue
+[2024-02-23T16:41:20.065+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:41:20.064+0000] {dagbag.py:538} INFO - Filling up the DagBag from /opt/airflow/dags/update_data.py
+[2024-02-23T16:41:20.081+0000] {processor.py:840} INFO - DAG(s) 'update_chicago_crime_data' retrieved from /opt/airflow/dags/update_data.py
+[2024-02-23T16:41:20.113+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:41:20.113+0000] {dag.py:3036} INFO - Sync 1 DAGs
+[2024-02-23T16:41:20.153+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:41:20.153+0000] {dag.py:3823} INFO - Setting next_dagrun for update_chicago_crime_data to 2024-02-18 00:00:00+00:00, run_after=2024-02-25 00:00:00+00:00
+[2024-02-23T16:41:20.187+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/update_data.py took 0.132 seconds
+[2024-02-23T16:43:00.794+0000] {processor.py:161} INFO - Started process (PID=41) to work on /opt/airflow/dags/update_data.py
+[2024-02-23T16:43:00.801+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/update_data.py for tasks to queue
+[2024-02-23T16:43:00.806+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:43:00.805+0000] {dagbag.py:538} INFO - Filling up the DagBag from /opt/airflow/dags/update_data.py
+[2024-02-23T16:43:00.895+0000] {processor.py:840} INFO - DAG(s) 'update_chicago_crime_data' retrieved from /opt/airflow/dags/update_data.py
+[2024-02-23T16:43:01.712+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:43:01.711+0000] {dag.py:3036} INFO - Sync 1 DAGs
+[2024-02-23T16:43:01.863+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:43:01.863+0000] {dag.py:3823} INFO - Setting next_dagrun for update_chicago_crime_data to 2024-02-18 00:00:00+00:00, run_after=2024-02-25 00:00:00+00:00
+[2024-02-23T16:43:01.929+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/update_data.py took 1.154 seconds
+[2024-02-23T16:43:32.106+0000] {processor.py:161} INFO - Started process (PID=98) to work on /opt/airflow/dags/update_data.py
+[2024-02-23T16:43:32.107+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/update_data.py for tasks to queue
+[2024-02-23T16:43:32.110+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:43:32.110+0000] {dagbag.py:538} INFO - Filling up the DagBag from /opt/airflow/dags/update_data.py
+[2024-02-23T16:43:32.124+0000] {processor.py:840} INFO - DAG(s) 'update_chicago_crime_data' retrieved from /opt/airflow/dags/update_data.py
+[2024-02-23T16:43:32.154+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:43:32.154+0000] {dag.py:3036} INFO - Sync 1 DAGs
+[2024-02-23T16:43:32.195+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:43:32.195+0000] {dag.py:3823} INFO - Setting next_dagrun for update_chicago_crime_data to 2024-02-18 00:00:00+00:00, run_after=2024-02-25 00:00:00+00:00
+[2024-02-23T16:43:32.224+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/update_data.py took 0.124 seconds
+[2024-02-23T16:44:02.388+0000] {processor.py:161} INFO - Started process (PID=155) to work on /opt/airflow/dags/update_data.py
+[2024-02-23T16:44:02.389+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/update_data.py for tasks to queue
+[2024-02-23T16:44:02.392+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:44:02.391+0000] {dagbag.py:538} INFO - Filling up the DagBag from /opt/airflow/dags/update_data.py
+[2024-02-23T16:44:02.406+0000] {processor.py:840} INFO - DAG(s) 'update_chicago_crime_data' retrieved from /opt/airflow/dags/update_data.py
+[2024-02-23T16:44:02.440+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:44:02.439+0000] {dag.py:3036} INFO - Sync 1 DAGs
+[2024-02-23T16:44:02.482+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:44:02.482+0000] {dag.py:3823} INFO - Setting next_dagrun for update_chicago_crime_data to 2024-02-18 00:00:00+00:00, run_after=2024-02-25 00:00:00+00:00
+[2024-02-23T16:44:02.513+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/update_data.py took 0.130 seconds
+[2024-02-23T16:44:32.775+0000] {processor.py:161} INFO - Started process (PID=212) to work on /opt/airflow/dags/update_data.py
+[2024-02-23T16:44:32.777+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/update_data.py for tasks to queue
+[2024-02-23T16:44:32.781+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:44:32.780+0000] {dagbag.py:538} INFO - Filling up the DagBag from /opt/airflow/dags/update_data.py
+[2024-02-23T16:44:32.798+0000] {processor.py:840} INFO - DAG(s) 'update_chicago_crime_data' retrieved from /opt/airflow/dags/update_data.py
+[2024-02-23T16:44:32.839+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:44:32.838+0000] {dag.py:3036} INFO - Sync 1 DAGs
+[2024-02-23T16:44:32.894+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:44:32.894+0000] {dag.py:3823} INFO - Setting next_dagrun for update_chicago_crime_data to 2024-02-18 00:00:00+00:00, run_after=2024-02-25 00:00:00+00:00
+[2024-02-23T16:44:32.935+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/update_data.py took 0.169 seconds
+[2024-02-23T16:45:03.554+0000] {processor.py:161} INFO - Started process (PID=269) to work on /opt/airflow/dags/update_data.py
+[2024-02-23T16:45:03.555+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/update_data.py for tasks to queue
+[2024-02-23T16:45:03.558+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:45:03.557+0000] {dagbag.py:538} INFO - Filling up the DagBag from /opt/airflow/dags/update_data.py
+[2024-02-23T16:45:03.570+0000] {processor.py:840} INFO - DAG(s) 'update_chicago_crime_data' retrieved from /opt/airflow/dags/update_data.py
+[2024-02-23T16:45:03.608+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:45:03.608+0000] {dag.py:3036} INFO - Sync 1 DAGs
+[2024-02-23T16:45:03.660+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:45:03.659+0000] {dag.py:3823} INFO - Setting next_dagrun for update_chicago_crime_data to 2024-02-18 00:00:00+00:00, run_after=2024-02-25 00:00:00+00:00
+[2024-02-23T16:45:03.696+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/update_data.py took 0.148 seconds
+[2024-02-23T16:45:33.821+0000] {processor.py:161} INFO - Started process (PID=325) to work on /opt/airflow/dags/update_data.py
+[2024-02-23T16:45:33.824+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/update_data.py for tasks to queue
+[2024-02-23T16:45:33.827+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:45:33.826+0000] {dagbag.py:538} INFO - Filling up the DagBag from /opt/airflow/dags/update_data.py
+[2024-02-23T16:45:33.841+0000] {processor.py:840} INFO - DAG(s) 'update_chicago_crime_data' retrieved from /opt/airflow/dags/update_data.py
+[2024-02-23T16:45:33.875+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:45:33.875+0000] {dag.py:3036} INFO - Sync 1 DAGs
+[2024-02-23T16:45:33.923+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:45:33.922+0000] {dag.py:3823} INFO - Setting next_dagrun for update_chicago_crime_data to 2024-02-18 00:00:00+00:00, run_after=2024-02-25 00:00:00+00:00
+[2024-02-23T16:45:33.960+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/update_data.py took 0.146 seconds
+[2024-02-23T16:46:04.065+0000] {processor.py:161} INFO - Started process (PID=382) to work on /opt/airflow/dags/update_data.py
+[2024-02-23T16:46:04.066+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/update_data.py for tasks to queue
+[2024-02-23T16:46:04.069+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:46:04.069+0000] {dagbag.py:538} INFO - Filling up the DagBag from /opt/airflow/dags/update_data.py
+[2024-02-23T16:46:04.086+0000] {processor.py:840} INFO - DAG(s) 'update_chicago_crime_data' retrieved from /opt/airflow/dags/update_data.py
+[2024-02-23T16:46:04.117+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:46:04.117+0000] {dag.py:3036} INFO - Sync 1 DAGs
+[2024-02-23T16:46:04.160+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:46:04.160+0000] {dag.py:3823} INFO - Setting next_dagrun for update_chicago_crime_data to 2024-02-18 00:00:00+00:00, run_after=2024-02-25 00:00:00+00:00
+[2024-02-23T16:46:04.190+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/update_data.py took 0.130 seconds
+[2024-02-23T16:46:34.936+0000] {processor.py:161} INFO - Started process (PID=439) to work on /opt/airflow/dags/update_data.py
+[2024-02-23T16:46:34.937+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/update_data.py for tasks to queue
+[2024-02-23T16:46:34.941+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:46:34.941+0000] {dagbag.py:538} INFO - Filling up the DagBag from /opt/airflow/dags/update_data.py
+[2024-02-23T16:46:34.958+0000] {processor.py:840} INFO - DAG(s) 'update_chicago_crime_data' retrieved from /opt/airflow/dags/update_data.py
+[2024-02-23T16:46:34.996+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:46:34.996+0000] {dag.py:3036} INFO - Sync 1 DAGs
+[2024-02-23T16:46:35.053+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:46:35.052+0000] {dag.py:3823} INFO - Setting next_dagrun for update_chicago_crime_data to 2024-02-18 00:00:00+00:00, run_after=2024-02-25 00:00:00+00:00
+[2024-02-23T16:46:35.091+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/update_data.py took 0.160 seconds
+[2024-02-23T16:47:05.471+0000] {processor.py:161} INFO - Started process (PID=496) to work on /opt/airflow/dags/update_data.py
+[2024-02-23T16:47:05.474+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/update_data.py for tasks to queue
+[2024-02-23T16:47:05.477+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:47:05.476+0000] {dagbag.py:538} INFO - Filling up the DagBag from /opt/airflow/dags/update_data.py
+[2024-02-23T16:47:05.490+0000] {processor.py:840} INFO - DAG(s) 'update_chicago_crime_data' retrieved from /opt/airflow/dags/update_data.py
+[2024-02-23T16:47:05.521+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:47:05.521+0000] {dag.py:3036} INFO - Sync 1 DAGs
+[2024-02-23T16:47:05.564+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:47:05.564+0000] {dag.py:3823} INFO - Setting next_dagrun for update_chicago_crime_data to 2024-02-18 00:00:00+00:00, run_after=2024-02-25 00:00:00+00:00
+[2024-02-23T16:47:05.600+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/update_data.py took 0.133 seconds
+[2024-02-23T16:48:33.419+0000] {processor.py:161} INFO - Started process (PID=41) to work on /opt/airflow/dags/update_data.py
+[2024-02-23T16:48:33.421+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/update_data.py for tasks to queue
+[2024-02-23T16:48:33.425+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:48:33.424+0000] {dagbag.py:538} INFO - Filling up the DagBag from /opt/airflow/dags/update_data.py
+[2024-02-23T16:48:33.504+0000] {processor.py:840} INFO - DAG(s) 'update_chicago_crime_data' retrieved from /opt/airflow/dags/update_data.py
+[2024-02-23T16:48:34.060+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:48:34.060+0000] {dag.py:3036} INFO - Sync 1 DAGs
+[2024-02-23T16:48:34.124+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:48:34.124+0000] {dag.py:3823} INFO - Setting next_dagrun for update_chicago_crime_data to 2024-02-18 00:00:00+00:00, run_after=2024-02-25 00:00:00+00:00
+[2024-02-23T16:48:34.177+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/update_data.py took 0.767 seconds
+[2024-02-23T16:51:53.818+0000] {processor.py:161} INFO - Started process (PID=33) to work on /opt/airflow/dags/update_data.py
+[2024-02-23T16:51:53.820+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/update_data.py for tasks to queue
+[2024-02-23T16:51:53.824+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:51:53.822+0000] {dagbag.py:538} INFO - Filling up the DagBag from /opt/airflow/dags/update_data.py
+[2024-02-23T16:51:53.857+0000] {processor.py:840} INFO - DAG(s) 'update_chicago_crime_data' retrieved from /opt/airflow/dags/update_data.py
+[2024-02-23T16:51:54.179+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:51:54.178+0000] {dag.py:3036} INFO - Sync 1 DAGs
+[2024-02-23T16:51:54.228+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:51:54.227+0000] {dag.py:3823} INFO - Setting next_dagrun for update_chicago_crime_data to 2024-02-18 00:00:00+00:00, run_after=2024-02-25 00:00:00+00:00
+[2024-02-23T16:51:54.264+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/update_data.py took 0.451 seconds
+[2024-02-23T16:52:24.354+0000] {processor.py:161} INFO - Started process (PID=91) to work on /opt/airflow/dags/update_data.py
+[2024-02-23T16:52:24.357+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/update_data.py for tasks to queue
+[2024-02-23T16:52:24.359+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:52:24.359+0000] {dagbag.py:538} INFO - Filling up the DagBag from /opt/airflow/dags/update_data.py
+[2024-02-23T16:52:24.373+0000] {processor.py:840} INFO - DAG(s) 'update_chicago_crime_data' retrieved from /opt/airflow/dags/update_data.py
+[2024-02-23T16:52:24.418+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:52:24.417+0000] {dag.py:3036} INFO - Sync 1 DAGs
+[2024-02-23T16:52:24.465+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:52:24.465+0000] {dag.py:3823} INFO - Setting next_dagrun for update_chicago_crime_data to 2024-02-18 00:00:00+00:00, run_after=2024-02-25 00:00:00+00:00
+[2024-02-23T16:52:24.501+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/update_data.py took 0.153 seconds
+[2024-02-23T16:52:55.208+0000] {processor.py:161} INFO - Started process (PID=149) to work on /opt/airflow/dags/update_data.py
+[2024-02-23T16:52:55.209+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/update_data.py for tasks to queue
+[2024-02-23T16:52:55.213+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:52:55.213+0000] {dagbag.py:538} INFO - Filling up the DagBag from /opt/airflow/dags/update_data.py
+[2024-02-23T16:52:55.228+0000] {processor.py:840} INFO - DAG(s) 'update_chicago_crime_data' retrieved from /opt/airflow/dags/update_data.py
+[2024-02-23T16:52:55.264+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:52:55.263+0000] {dag.py:3036} INFO - Sync 1 DAGs
+[2024-02-23T16:52:55.303+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:52:55.303+0000] {dag.py:3823} INFO - Setting next_dagrun for update_chicago_crime_data to 2024-02-18 00:00:00+00:00, run_after=2024-02-25 00:00:00+00:00
+[2024-02-23T16:52:55.331+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/update_data.py took 0.130 seconds
+[2024-02-23T16:53:26.062+0000] {processor.py:161} INFO - Started process (PID=206) to work on /opt/airflow/dags/update_data.py
+[2024-02-23T16:53:26.064+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/update_data.py for tasks to queue
+[2024-02-23T16:53:26.068+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:53:26.067+0000] {dagbag.py:538} INFO - Filling up the DagBag from /opt/airflow/dags/update_data.py
+[2024-02-23T16:53:26.104+0000] {processor.py:840} INFO - DAG(s) 'update_chicago_crime_data' retrieved from /opt/airflow/dags/update_data.py
+[2024-02-23T16:53:26.148+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:53:26.147+0000] {dag.py:3036} INFO - Sync 1 DAGs
+[2024-02-23T16:53:26.196+0000] {logging_mixin.py:188} INFO - [2024-02-23T16:53:26.195+0000] {dag.py:3823} INFO - Setting next_dagrun for update_chicago_crime_data to 2024-02-18 00:00:00+00:00, run_after=2024-02-25 00:00:00+00:00
+[2024-02-23T16:53:26.227+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/update_data.py took 0.172 seconds

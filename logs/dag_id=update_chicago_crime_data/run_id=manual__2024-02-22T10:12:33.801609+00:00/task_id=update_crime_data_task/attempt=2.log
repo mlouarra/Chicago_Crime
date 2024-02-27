@@ -1,0 +1,26 @@
+[2024-02-22T10:17:40.101+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: update_chicago_crime_data.update_crime_data_task manual__2024-02-22T10:12:33.801609+00:00 [queued]>
+[2024-02-22T10:17:40.119+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: update_chicago_crime_data.update_crime_data_task manual__2024-02-22T10:12:33.801609+00:00 [queued]>
+[2024-02-22T10:17:40.119+0000] {taskinstance.py:2170} INFO - Starting attempt 2 of 2
+[2024-02-22T10:17:40.143+0000] {taskinstance.py:2191} INFO - Executing <Task(PythonOperator): update_crime_data_task> on 2024-02-22 10:12:33.801609+00:00
+[2024-02-22T10:17:40.147+0000] {standard_task_runner.py:60} INFO - Started process 313 to run task
+[2024-02-22T10:17:40.152+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', 'update_chicago_crime_data', 'update_crime_data_task', 'manual__2024-02-22T10:12:33.801609+00:00', '--job-id', '54', '--raw', '--subdir', 'DAGS_FOLDER/update_data.py', '--cfg-path', '/tmp/tmpi7n__5im']
+[2024-02-22T10:17:40.156+0000] {standard_task_runner.py:88} INFO - Job 54: Subtask update_crime_data_task
+[2024-02-22T10:17:40.224+0000] {task_command.py:423} INFO - Running <TaskInstance: update_chicago_crime_data.update_crime_data_task manual__2024-02-22T10:12:33.801609+00:00 [running]> on host 92e3e0b69145
+[2024-02-22T10:17:40.357+0000] {taskinstance.py:2480} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='Patricia' AIRFLOW_CTX_DAG_ID='update_chicago_crime_data' AIRFLOW_CTX_TASK_ID='update_crime_data_task' AIRFLOW_CTX_EXECUTION_DATE='2024-02-22T10:12:33.801609+00:00' AIRFLOW_CTX_TRY_NUMBER='2' AIRFLOW_CTX_DAG_RUN_ID='manual__2024-02-22T10:12:33.801609+00:00'
+[2024-02-22T10:17:40.363+0000] {taskinstance.py:2698} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/models/taskinstance.py", line 433, in _execute_task
+    result = execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 199, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 216, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/update_data.py", line 37, in task_update_crime_data
+    from chicago_crime_predictor import update_crime_data
+  File "/opt/airflow/dags/../src/chicago_crime_predictor.py", line 1, in <module>
+    import joblib
+ModuleNotFoundError: No module named 'joblib'
+[2024-02-22T10:17:40.379+0000] {taskinstance.py:1138} INFO - Marking task as FAILED. dag_id=update_chicago_crime_data, task_id=update_crime_data_task, execution_date=20240222T101233, start_date=20240222T101740, end_date=20240222T101740
+[2024-02-22T10:17:40.399+0000] {standard_task_runner.py:107} ERROR - Failed to execute job 54 for task update_crime_data_task (No module named 'joblib'; 313)
+[2024-02-22T10:17:40.406+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 1
+[2024-02-22T10:17:40.435+0000] {taskinstance.py:3280} INFO - 0 downstream tasks scheduled from follow-on schedule check

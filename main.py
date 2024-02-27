@@ -1,4 +1,4 @@
-from src import chicago_crime_predictor as ccp
+#from src import chicago_crime_predictor as ccp
 
 from pathlib import Path
 from src import chicago_crime_predictor as ccp
