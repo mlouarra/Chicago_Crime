@@ -33,9 +33,17 @@ dag = DAG(
 )
 
 def task_update_crime_data():
-    sys.path.insert(0, '/opt/airflow/Chicago_Crime')
-    from chicago_crime_predictor import ChicagoCrimePredictor
-    ccp = ChicagoCrimePredictor(months_pred=3, data_dir='/opt/airflow/src')
+    from pathlib import Path
+
+    # Obtenir le chemin complet sans masquage
+    chemin_complet = Path().resolve()
+
+    # Imprimer le chemin complet
+    print("Chemin new position:", chemin_complet)
+
+    from opt.airflow.src.chicago_crime_predictor import ChicagoCrimePredictor
+
+    ccp = ChicagoCrimePredictor(months_pred=3, data_dir='/opt/airflow/data')
     ccp.update_crime_data()
 
 # Opérateur PythonOperator pour exécuter update_crime_data()

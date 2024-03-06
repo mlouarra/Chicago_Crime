@@ -1,0 +1,25 @@
+[2024-03-05T15:15:58.607+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: update_chicago_crime_data.update_crime_data_task manual__2024-03-05T15:15:55.744373+00:00 [queued]>
+[2024-03-05T15:15:58.623+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: update_chicago_crime_data.update_crime_data_task manual__2024-03-05T15:15:55.744373+00:00 [queued]>
+[2024-03-05T15:15:58.624+0000] {taskinstance.py:2170} INFO - Starting attempt 1 of 2
+[2024-03-05T15:15:58.652+0000] {taskinstance.py:2191} INFO - Executing <Task(PythonOperator): update_crime_data_task> on 2024-03-05 15:15:55.744373+00:00
+[2024-03-05T15:15:58.660+0000] {standard_task_runner.py:60} INFO - Started process 26955 to run task
+[2024-03-05T15:15:58.664+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', 'update_chicago_crime_data', 'update_crime_data_task', 'manual__2024-03-05T15:15:55.744373+00:00', '--job-id', '76', '--raw', '--subdir', 'DAGS_FOLDER/update_data.py', '--cfg-path', '/tmp/tmp0fi54jrw']
+[2024-03-05T15:15:58.668+0000] {standard_task_runner.py:88} INFO - Job 76: Subtask update_crime_data_task
+[2024-03-05T15:15:58.761+0000] {task_command.py:423} INFO - Running <TaskInstance: update_chicago_crime_data.update_crime_data_task manual__2024-03-05T15:15:55.744373+00:00 [running]> on host 40b8387e4777
+[2024-03-05T15:15:58.903+0000] {taskinstance.py:2480} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='Patricia' AIRFLOW_CTX_DAG_ID='update_chicago_crime_data' AIRFLOW_CTX_TASK_ID='update_crime_data_task' AIRFLOW_CTX_EXECUTION_DATE='2024-03-05T15:15:55.744373+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2024-03-05T15:15:55.744373+00:00'
+[2024-03-05T15:15:58.906+0000] {logging_mixin.py:188} INFO - Chemin complet: /opt/***
+[2024-03-05T15:15:58.906+0000] {taskinstance.py:2698} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.9/site-packages/airflow/models/taskinstance.py", line 433, in _execute_task
+    result = execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.9/site-packages/airflow/operators/python.py", line 199, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.9/site-packages/airflow/operators/python.py", line 216, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/update_data.py", line 47, in task_update_crime_data
+    ccp = ChicagoCrimePredictor(months_pred=3, data_dir='/opt/airflow/data')
+NameError: name 'ChicagoCrimePredictor' is not defined
+[2024-03-05T15:15:58.918+0000] {taskinstance.py:1138} INFO - Marking task as UP_FOR_RETRY. dag_id=update_chicago_crime_data, task_id=update_crime_data_task, execution_date=20240305T151555, start_date=20240305T151558, end_date=20240305T151558
+[2024-03-05T15:15:58.938+0000] {standard_task_runner.py:107} ERROR - Failed to execute job 76 for task update_crime_data_task (name 'ChicagoCrimePredictor' is not defined; 26955)
+[2024-03-05T15:15:58.959+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 1
+[2024-03-05T15:15:58.996+0000] {taskinstance.py:3280} INFO - 0 downstream tasks scheduled from follow-on schedule check
