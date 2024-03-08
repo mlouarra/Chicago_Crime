@@ -20,7 +20,7 @@ logger = Logger('log.txt').get_logger()
 class ChicagoCrimePredictor:
 
     """
-    Cette classe est utilisée pour prédire les crimes à Chicago en utilisant des données historiques
+    Cette classe est utilisée pour prédire les crimes à Chicago en utilisant des données historieques
     et socio-économiques. Elle implémente les fonctionnalités pour charger des données, entraîner un modèle
     prédictif, faire des prédictions, sauvegarder le modèle, évaluer les performances et visualiser les résultats.
     """
@@ -192,6 +192,7 @@ class ChicagoCrimePredictor:
         df = df[is_type & is_area]
 
         # Ajout d'une colonne 'year_month' pour le groupement.
+        df['date'] = pd.to_datetime(df['date'])
         df['year_month'] = df['date'].dt.to_period('M')
 
         # Groupement par 'year_month' et comptage des incidents.
@@ -281,6 +282,7 @@ class ChicagoCrimePredictor:
         if self.model is None:
             raise ValueError("Le modèle n'a pas encore été entraîné. Utilisez la méthode 'model_train' d'abord.")
         # Calcul de la MAE
+
         mae = mean_absolute_error(test['y'], predictions['yhat'])
         # Calcul du RMSE
         rmse = np.sqrt(mean_squared_error(test['y'], predictions['yhat']))
