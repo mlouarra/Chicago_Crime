@@ -1,0 +1,15 @@
+artifact_uri: file:///home/patricia/Documents/Chicago_Crime/mlflow_files/mlruns/703448429897013642/a41e2db206f84b509fe11f9e954462e5/artifacts
+end_time: 1710697512849
+entry_point_name: ''
+experiment_id: '703448429897013642'
+lifecycle_stage: active
+run_id: a41e2db206f84b509fe11f9e954462e5
+run_name: run_model
+run_uuid: a41e2db206f84b509fe11f9e954462e5
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1710697512808
+status: 3
+tags: []
+user_id: patricia

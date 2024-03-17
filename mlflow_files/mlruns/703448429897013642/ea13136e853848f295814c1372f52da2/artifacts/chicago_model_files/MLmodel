@@ -1,0 +1,19 @@
+artifact_path: chicago_model_files
+flavors:
+  prophet:
+    code: null
+    data: model.pr
+    model_type: Prophet
+    prophet_version: 1.1.5
+  python_function:
+    data: model.pr
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.prophet
+    python_version: 3.9.18
+mlflow_version: 2.11.1
+model_size_bytes: 12892
+model_uuid: c9723213f6fc4400b22455f836896fa3
+run_id: ea13136e853848f295814c1372f52da2
+utc_time_created: '2024-03-17 17:22:44.583091'
