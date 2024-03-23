@@ -21,4 +21,4 @@ jobs:
           pip install mlflow  
 
       - name: Run MLflow script
-        run: python run_train.py
+        run: python train_mlflow/mlflow_server/run_train.py
