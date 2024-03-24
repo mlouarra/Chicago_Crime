@@ -1,5 +1,5 @@
 from src import chicago_crime_predictor as ccp
-
+import db.init_db
 from pathlib import Path
 from src import chicago_crime_predictor as ccp
 
@@ -9,6 +9,9 @@ BASE_DIR = Path(__file__).resolve().parent
 # Chemins relatifs basés sur le chemin de base
 DATA_DIR = BASE_DIR / 'data'
 MODELS_DIR = BASE_DIR / 'models'
+
+def initialize_database():
+    db.init_db.create_database()
 
 
 def main():
@@ -28,5 +31,8 @@ def main():
     obj_predict.model_save(MODELS_DIR/'test_model.pkl')
     obj_predict.model_evaluation(df_test, predictions)
     obj_predict.model_visualization(df_train, df_test, predictions)
+
 if __name__ == "__main__":
+
+    initialize_database()
     main()

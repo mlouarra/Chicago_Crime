@@ -12,10 +12,10 @@ import os
 
 # Importez la classe Logger
 from src.logger import Logger
-
 # Configurez le logger
 logger = Logger('log.txt').get_logger()
 
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 class ChicagoCrimePredictor:
 
@@ -288,12 +288,13 @@ class ChicagoCrimePredictor:
         r2 = r2_score(test['y'], predictions['yhat'])
         # Enregistrement dans la base de données
         # Chemin par défaut pour exécution directe, modifiez-le selon votre structure de dossiers
-        default_db_path = './db/model_evaluation.db'
-
+        #default_db_path = './db/model_evaluation.db'
+        default_db_path = os.path.join(BASE_DIR, 'db/model_evaluation.db')
+        print(default_db_path)
         # Utilisez la variable d'environnement si elle est définie, sinon utilisez le chemin par défaut
         database_path = os.getenv('DATABASE_PATH', default_db_path)
-        connection = sqlite3.connect(database_path)
 
+        connection = sqlite3.connect(database_path)
         cursor = connection.cursor()
 
         # Obtention de la date et l'heure actuelles
