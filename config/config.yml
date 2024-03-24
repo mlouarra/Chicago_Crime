@@ -6,10 +6,6 @@ connect:
   Pathcolumns: '/home/mlou/Chicago_Crime/config/rename_columns.json'
   PathGeoMapChicago: '../data/raw/chicago_police_districts.geojson'
 
-
-
-
-
 NameArea: ['Albany Park',
   'Archer Heights',
   'Armour Square',
