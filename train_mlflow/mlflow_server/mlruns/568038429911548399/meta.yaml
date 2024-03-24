@@ -1,0 +1,6 @@
+artifact_location: file:///home/patricia/Documents/Chicago_Crime/train_mlflow/mlflow_server/mlruns/568038429911548399
+creation_time: 1711218665175
+experiment_id: '568038429911548399'
+last_update_time: 1711218665175
+lifecycle_stage: active
+name: Chicago_Model_Evaluation

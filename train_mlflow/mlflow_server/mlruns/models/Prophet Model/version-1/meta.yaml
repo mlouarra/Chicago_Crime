@@ -1,0 +1,14 @@
+aliases: []
+creation_timestamp: 1711218945075
+current_stage: None
+description: null
+last_updated_timestamp: 1711218945075
+name: Prophet Model
+run_id: c09b80ae0ea049518d915f720c8db66a
+run_link: null
+source: file:///home/patricia/Documents/Chicago_Crime/train_mlflow/mlflow_server/mlruns/568038429911548399/c09b80ae0ea049518d915f720c8db66a/artifacts/model
+status: READY
+status_message: null
+storage_location: file:///home/patricia/Documents/Chicago_Crime/train_mlflow/mlflow_server/mlruns/568038429911548399/c09b80ae0ea049518d915f720c8db66a/artifacts/model
+user_id: null
+version: 1
