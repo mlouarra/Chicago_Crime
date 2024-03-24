@@ -1,0 +1,31 @@
+2024-03-04 15:22:23,430 - src.logger - INFO - Début de la mise à jour des données sur les crimes depuis l'API.
+2024-03-04 15:22:23,430 - src.logger - INFO - lecture du fichier Crime_Chicago.csv
+2024-03-04 15:22:31,667 - src.logger - INFO - la date max est 2023-02-06 20:59:00
+2024-03-04 15:22:37,773 - src.logger - INFO - Données mises à jour avec succès jusqu'au 2024-03-04.
+2024-03-04 15:23:12,792 - src.logger - INFO - Évaluation du modèle terminée. MAE: 28.093984895318684, RMSE: 31.001263325994977, R²: -8.03835418000954
+2024-03-04 15:25:34,711 - src.logger - INFO - Début de la mise à jour des données sur les crimes depuis l'API.
+2024-03-04 15:25:34,711 - src.logger - INFO - lecture du fichier Crime_Chicago.csv
+2024-03-04 15:25:40,380 - src.logger - INFO - la date max est 2023-02-06 23:57:00
+2024-03-04 15:25:49,700 - src.logger - INFO - Données mises à jour avec succès jusqu'au 2024-03-04.
+2024-03-04 15:29:59,934 - src.logger - INFO - Début de la mise à jour des données sur les crimes depuis l'API.
+2024-03-04 15:29:59,934 - src.logger - INFO - lecture du fichier Crime_Chicago.csv
+2024-03-04 15:53:47,483 - src.logger - INFO - Début de la mise à jour des données sur les crimes depuis l'API.
+2024-03-04 15:53:48,439 - src.logger - INFO - lecture du fichier Crime_Chicago.csv
+2024-03-04 15:53:59,309 - src.logger - INFO - la date max est 12/31/2022 12:59:00 PM
+2024-03-04 15:54:14,669 - src.logger - INFO - Données mises à jour avec succès jusqu'au 2024-03-04.
+2024-03-04 16:02:04,467 - src.logger - INFO - Début de la mise à jour des données sur les crimes depuis l'API.
+2024-03-04 16:02:04,467 - src.logger - INFO - lecture du fichier Crime_Chicago.csv
+2024-03-04 16:02:11,757 - src.logger - INFO - la date max est 2024-02-25 00:00:00
+2024-03-04 16:02:12,630 - src.logger - INFO - Données mises à jour avec succès jusqu'au 2024-03-04.
+2024-03-04 16:06:43,845 - src.logger - INFO - Début de la mise à jour des données sur les crimes depuis l'API.
+2024-03-04 16:06:43,845 - src.logger - INFO - lecture du fichier Crime_Chicago.csv
+2024-03-04 16:06:48,927 - src.logger - INFO - la date max est 2023-02-06 23:57:00
+2024-03-04 16:06:52,585 - src.logger - INFO - Données mises à jour avec succès jusqu'au 2024-03-04.
+2024-03-04 17:29:44,693 - src.logger - INFO - Début de la mise à jour des données sur les crimes depuis l'API.
+2024-03-04 17:29:44,693 - src.logger - INFO - lecture du fichier Crime_Chicago.csv
+2024-03-04 17:29:50,476 - src.logger - INFO - la date max est 2023-02-06 23:57:00
+2024-03-04 17:29:54,001 - src.logger - INFO - Données mises à jour avec succès jusqu'au 2024-03-04.
+2024-03-04 17:36:21,597 - src.logger - INFO - Début de la mise à jour des données sur les crimes depuis l'API.
+2024-03-04 17:36:21,597 - src.logger - INFO - lecture du fichier Crime_Chicago.csv
+2024-03-04 17:36:26,730 - src.logger - INFO - la date max est 2023-02-06 23:57:00
+2024-03-04 17:36:30,422 - src.logger - INFO - Données mises à jour avec succès jusqu'au 2024-03-04.
