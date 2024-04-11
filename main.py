@@ -26,6 +26,7 @@ def main():
     obj_predict.df_process()
     obj_predict.update_crime_data()
     df_train, df_test = obj_predict.return_data("ASSAULT", 'Austin')
+
     obj_predict.model_train(df_train)
     forecast, predictions = obj_predict.model_predict()
     obj_predict.model_save(MODELS_DIR/'test_model.pkl')

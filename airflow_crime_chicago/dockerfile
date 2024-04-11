@@ -1,0 +1,22 @@
+# Utilisez l'image Apache Airflow officielle comme image de base
+FROM apache/airflow:2.8.1-python3.9
+
+# Définir l'environnement de travail
+WORKDIR /opt/airflow
+
+# Copier le dossier des DAGs et des plugins dans l'image
+COPY ./dags ./dags
+COPY ./plugins ./plugins
+
+# Installer les dépendances requises
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copiez le reste des fichiers nécessaires au projet ici si nécessaire
+# COPY <autres_fichiers_ou_dossiers> <destination_dans_l'image>
+
+# L'utilisateur par défaut de l'image Airflow est `airflow`
+USER airflow
+
+# Exposez les ports nécessaires (8080 est le port par défaut pour l'interface web d'Airflow)
+EXPOSE 8080
