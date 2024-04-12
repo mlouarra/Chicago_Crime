@@ -3,7 +3,7 @@ name: MLflow Weekly Run
 on:
   schedule:
     #- cron: "0 0 * * 1"  # Exécution hebdomadaire
-    - cron: "*/1 * * * *"
+    #- cron: "*/1 * * * *"
 
 jobs:
   mlflow_run:
