@@ -117,8 +117,15 @@ services:
       - "5555:5555"
     restart: always
 
+  #conteneur tests
+  tests:
+    image: votre_registry/tests:latest #ajouter image du dockerhub
+    ports:
+      - "8081:8081"
+    volumes:
+      - ./tests:/app/tests
 
-  #mlflow
+  #conteneur mlflow server
   mlflow_server:
     image: votre_registry/mlflow_server:latest #ajouter image du dockerhub
     ports:
@@ -127,6 +134,7 @@ services:
       - ./train_mlflow/mlflow_server/mlflow_server:/app/mlflow_server
     command: [ "python", "run_train.py" ]
 
+  #conteneur mlflow server
   mlflow_ui:
     image: votre_registry/mlflow_ui:latest #ajouter image du dockerhub
     ports:
@@ -134,12 +142,7 @@ services:
     volumes:
       - ./train_mlflow:/app
 
-  tests:
-    image: votre_registry/tests:latest #ajouter image du dockerhub
-    ports:
-      - "8081:8081"
-    volumes:
-      - ./tests:/app/tests
+
 
 volumes:
   postgres-db-volume:

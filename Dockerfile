@@ -1,5 +1,5 @@
 #Dockerfile pour les fichiers du projet
-#fichier dockerignore pour exclure airflow, mlflow et les tests
+#fichier dockerignore pour exclure airflow, mlflow et les tests, api
 
 FROM python:3.9
 
