@@ -1,8 +1,8 @@
 import jwt
 import passlib
-from fastapi import FastAPI, Depends, HTTPException, Header
+from fastapi import FastAPI, Depends, HTTPException
 from src.chicago_crime_predictor import ChicagoCrimePredictor
-from src.auth_api import UserLogin, username, verify_password, hashed_password, generate_token, oauth2_scheme, \
+from src_api.auth_api import username, verify_password, hashed_password, generate_token, oauth2_scheme, \
     SECRET_KEY, ALGORITHM
 from fastapi.security import OAuth2PasswordRequestForm
 from pathlib import Path
@@ -12,13 +12,13 @@ import joblib
 from src.logger import Logger
 
 # Configurez le logger
-logger = Logger('log.txt').get_logger()
+logger = Logger('../log.txt').get_logger()
 
 # Instanciez l'application FastAPI
 app = FastAPI()
 
 # Chemins relatifs basés sur le chemin de base du fichier main_api.py
-BASE_DIR = Path(__file__).resolve().parent
+BASE_DIR = Path(__file__).resolve().parent.parent
 DATA_DIR = BASE_DIR / 'data'
 MODELS_DIR = BASE_DIR / 'models'
 
