@@ -1,10 +1,10 @@
-from src import chicago_crime_predictor as ccp
 import db.init_db
 from pathlib import Path
 from src import chicago_crime_predictor as ccp
 
 # Chemin de base du projet
 BASE_DIR = Path(__file__).resolve().parent
+
 
 # Chemins relatifs basés sur le chemin de base
 DATA_DIR = BASE_DIR / 'data'

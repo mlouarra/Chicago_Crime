@@ -283,6 +283,7 @@ class ChicagoCrimePredictor:
         # Calcul de la MAE
         mae = mean_absolute_error(test['y'], predictions['yhat'])
         # Calcul du RMSE
+
         rmse = np.sqrt(mean_squared_error(test['y'], predictions['yhat']))
         # Calcul du R²
         r2 = r2_score(test['y'], predictions['yhat'])
