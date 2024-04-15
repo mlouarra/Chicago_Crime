@@ -131,7 +131,7 @@ services:
     ports:
       - "5000:5000"
     volumes:
-      - ./train_mlflow/mlflow_server/mlflow_server:/app/mlflow_server
+      - ./train_mlflow/mlflow_server:/app/train_mlflow/mlflow_server
     command: [ "python", "run_train.py" ]
 
   #conteneur mlflow server
@@ -140,9 +140,19 @@ services:
     ports:
       - "5001:5000"
     volumes:
-      - ./train_mlflow:/app
+      - ./train_mlflow/mlflow_ui:/app/train_mlflow/mlflow_ui
 
   #conteneur api
+  api:
+    image: nom_utilisateur/nom_de_votre_image:tag
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+      - redis
+    volumes:
+      - ./src_api:/app/src_api
+
   #conteneur du code main
 
 volumes:
