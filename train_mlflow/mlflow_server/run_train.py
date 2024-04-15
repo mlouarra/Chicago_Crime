@@ -64,6 +64,13 @@ if r2 < 0.2:
             # Enregistrer le modèle dans MLflow Registry avec la  version
             model_uri = f"runs:/{run_id}/model"
             mlflow.register_model(model_uri, model_name, model_version)
+
+            # Enregistrer les autres artefacts pour affichage streamlit
+
+            mlflow.log_artifact(df_train, "train_data.csv")
+            mlflow.log_artifact(df_test, "test_data.csv")
+            mlflow.log_artifact(predictions, "predictions.csv")
+
             break  # Sortir de la boucle si le R² est satisfaisant
 
     else:  # Cette partie du code sera exécutée si la boucle n'est pas interrompue par un "break"

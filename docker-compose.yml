@@ -142,7 +142,8 @@ services:
     volumes:
       - ./train_mlflow:/app
 
-
+  #conteneur api
+  #conteneur du code main
 
 volumes:
   postgres-db-volume:

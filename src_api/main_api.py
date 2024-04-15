@@ -1,6 +1,17 @@
 import jwt
+import sys
+import os
 import passlib
 from fastapi import FastAPI, Depends, HTTPException
+
+# Définir le dossier courant
+current_dir = os.path.dirname(os.path.abspath(__file__))
+os.chdir(current_dir)
+
+# Ajouter le chemin du dossier parent à sys.path
+parent_dir = os.path.abspath(os.path.join(current_dir, '..'))
+sys.path.append(parent_dir)
+
 from src.chicago_crime_predictor import ChicagoCrimePredictor
 from src_api.auth_api import username, verify_password, hashed_password, generate_token, oauth2_scheme, \
     SECRET_KEY, ALGORITHM
