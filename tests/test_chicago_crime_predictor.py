@@ -71,7 +71,7 @@ def test_model_predict(mocker):
 
 def test_model_predict():
     # Chemin vers le modèle pré-entraîné
-    model_path = Path('models/test_model')
+    model_path = Path('models')
 
     # Charger le modèle pré-entraîné
     trained_model = joblib.load(model_path)
