@@ -6,7 +6,6 @@ import pandas as pd
 from prophet import Prophet
 from pytest import fixture
 sys.path.append(str(Path(__file__).parent.parent))
-print(sys.path.append(str(Path(__file__).parent.parent)))
 sys.path.append(str(Path(__file__).resolve().parents[1]))
 from src.chicago_crime_predictor import ChicagoCrimePredictor
 
@@ -71,8 +70,8 @@ def test_model_predict(mocker):
 
 def test_model_predict():
     # Chemin vers le modèle pré-entraîné
-    model_path = Path('./models/test_model.pkl')
-
+    model_path = Path('models/test_model.pkl')
+    print(model_path.resolve())
     # Charger le modèle pré-entraîné
     trained_model = joblib.load(model_path)
 

@@ -1,7 +1,8 @@
 version: '3'
 x-airflow-common:
   &airflow-common
-  image: new_airflow:latest
+  #image: new_airflow:latest
+  image: airflow_crime_chicago:1.0
   environment:
     &airflow-common-env
     PYTHONPATH: "/opt/airflow:${PYTHONPATH}"
@@ -29,6 +30,33 @@ x-airflow-common:
       condition: service_healthy
 
 services:
+  #conteneur app principal
+  chicago_predictions:
+    image: patw47/chicago_predictions:1.0
+    ports:
+      - "5002:5002"  # exemple de port à mapper
+    volumes:
+      - .:/app  # Montez le répertoire actuel dans /app dans le conteneur
+
+    #conteneur api
+  api:
+    image: patw47/src_api:1.0
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+      - redis
+    volumes:
+      - ./src_api:/app/src_api
+
+  #conteneur tests
+  tests:
+    image: patw47/tests:1.0 #ajouter image du dockerhub
+    ports:
+      - "8081:8081"
+    volumes:
+      - ./tests:/app/tests
+
   postgres:
     image: postgres:13
     environment:
@@ -117,43 +145,23 @@ services:
       - "5555:5555"
     restart: always
 
-  #conteneur tests
-  tests:
-    image: votre_registry/tests:latest #ajouter image du dockerhub
-    ports:
-      - "8081:8081"
-    volumes:
-      - ./tests:/app/tests
-
   #conteneur mlflow server
   mlflow_server:
-    image: votre_registry/mlflow_server:latest #ajouter image du dockerhub
+    image: patw47/mlflow_server:1.0 #ajouter image du dockerhub
     ports:
-      - "5000:5000"
+      - "5002:5000"
     volumes:
       - ./train_mlflow/mlflow_server:/app/train_mlflow/mlflow_server
     command: [ "python", "run_train.py" ]
 
   #conteneur mlflow server
   mlflow_ui:
-    image: votre_registry/mlflow_ui:latest #ajouter image du dockerhub
+    image: patw47/mlflow_ui:1.0 #ajouter image du dockerhub
     ports:
       - "5001:5000"
     volumes:
       - ./train_mlflow/mlflow_ui:/app/train_mlflow/mlflow_ui
 
-  #conteneur api
-  api:
-    image: nom_utilisateur/nom_de_votre_image:tag
-    ports:
-      - "8000:8000"
-    depends_on:
-      - postgres
-      - redis
-    volumes:
-      - ./src_api:/app/src_api
-
-  #conteneur du code main
 
 volumes:
   postgres-db-volume:

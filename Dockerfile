@@ -7,7 +7,7 @@ WORKDIR /app
 
 COPY . .
 
-# RUN pip install --no-cache-dir -r requirements.txt
+ RUN pip install --no-cache-dir -r requirements.txt
 
 # Commande par défaut pour lancer l'application, ou vous pouvez spécifier une commande personnalisée
-# CMD [""]
+CMD ['main.py']
