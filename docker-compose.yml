@@ -2,7 +2,7 @@ version: '3'
 x-airflow-common:
   &airflow-common
   #image: new_airflow:latest
-  image: airflow_crime_chicago:1.0
+  image: patw47/airflow_crime_chicago:1.0
   environment:
     &airflow-common-env
     PYTHONPATH: "/opt/airflow:${PYTHONPATH}"
