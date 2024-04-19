@@ -5,13 +5,12 @@ FROM python:3.9
 WORKDIR /app/mlflow_server
 
 # Copiez les fichiers nécessaires dans le conteneur
-COPY mlflow_server .
 
 # Installez les dépendances Python si nécessaire
 # RUN pip install --no-cache-dir -r requirements.txt
 
 # Exposez le port sur lequel MLflow Server va écouter
-EXPOSE 5000
+EXPOSE 8080
 
 # Commande pour lancer le serveur MLflow lorsque le conteneur démarre
-CMD ["python", "run_train.py"]
+CMD ["mlflow", "server", "--host 0.0.0.0", "--port 8080"]
