@@ -17,6 +17,9 @@ from send_mail import send_email
 # Chemins relatifs basés sur le chemin de base
 DATA_DIR = BASE_DIR / 'data'
 #mlflow.create_experiment("Chicago_Model_Evaluation")
+
+# mlflow.set_tracking_uri(uri="http://<host>:<port>")
+
 mlflow.set_experiment("Chicago_Model_Evaluation")
 
 def train_once():
