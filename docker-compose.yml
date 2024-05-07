@@ -30,13 +30,6 @@ x-airflow-common:
       condition: service_healthy
 
 services:
-  #conteneur app principal
-  chicago_predictions:
-    image: patw47/chicago_predictions:1.0
-    ports:
-      - "5002:5002"  # exemple de port à mapper
-    volumes:
-      - .:/app  # Montez le répertoire actuel dans /app dans le conteneur
 
     #conteneur api
   api:
@@ -145,23 +138,32 @@ services:
       - "5555:5555"
     restart: always
 
-  #conteneur mlflow server
   mlflow_server:
-    image: patw47/mlflow_server:1.0 #ajouter image du dockerhub
-    ports:
-      - "5002:5000"
-    volumes:
-      - ./train_mlflow/mlflow_server:/app/train_mlflow/mlflow_server
-    command: [ "python", "run_train.py" ]
-
-  #conteneur mlflow server
+      image: my_mlflow_server:latest
+      ports:
+        - "8080:8080"
+      volumes:
+        - ./mlflow_server_data:/mlruns
+      networks:
+        - global
   mlflow_ui:
-    image: patw47/mlflow_ui:1.0 #ajouter image du dockerhub
-    ports:
-      - "5001:5000"
-    volumes:
-      - ./train_mlflow/mlflow_ui:/app/train_mlflow/mlflow_ui
-
+      image: my_mlflow_ui:latest
+      ports:
+        - "5000:5000"
+      volumes:
+        - ./mlflow_server_data:/mlruns
+      networks:
+        - global
+  training:
+      image: my_training:latest
+      volumes:
+        - ../data:/data
+      depends_on:
+        - mlflow_server
+      networks:
+        - global
+networks:
+  global:
 
 volumes:
   postgres-db-volume:

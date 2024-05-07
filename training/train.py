@@ -11,4 +11,3 @@ def train_model(df_train, df_test, params):
     predictions = forecast['yhat']
     return predictions, params, model
 
-
